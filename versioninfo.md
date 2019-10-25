@@ -7,5 +7,10 @@ need to complete:
     - routes to check in and out vehicles -> routes associated with Trip db object
 
 - make sure loaner db objects point to the correct trip db objects (mongodb 1-to-many)
-- 
+- add automatic oauth so can ping db.
 
+
+
+
+done: 
+- added google oauth
