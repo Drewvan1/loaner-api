@@ -1,10 +1,7 @@
 // ========= IMPORT LIBRARIES ==============
 const express = require('express');
-const passport = require('passport')
-const GoogleStrategy = require('passport-google-oauth20').Strategy
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-
 const app = express();
 // ========= IMPORT MODLES ================
 require('./models/User');
@@ -17,6 +14,7 @@ const seedDB = require('./seeds');
 // ============ IMPORT ROUTES =====================
 const loanerRoutes = require('./routes/loaners')
 const reservationRoutes = require('./routes/reservations')
+const authRoutes = require('./routes/auth')
 
 // =========== SET UP MIDDLEWARE ===================
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -30,31 +28,20 @@ mongoose.connect('mongodb://localhost/loaner_app_v1', { useNewUrlParser: true, u
 
 seedDB();
 
-// ============ PASSPORT SETUP =====================
-const keys = require('./config/keys')
-passport.use(new GoogleStrategy({
-	clientID: keys.googleClientID,
-	clientSecret: keys.googleClientSecret,
-	callbackURL: '/auth/google/callback'
-	}, (accessToken, refreshToken, profile , done) => console.log(accessToken, profile)
-))
-
+// ============ PASSPORT CONFIG =====================
+require('./services/passport')
 
 // ============ CONNECT ROUTES =====================
 app.use(loanerRoutes)
 app.use(reservationRoutes)
-
-
-
-
+app.use(authRoutes)
 
 app.get('/', (req, res) => {
 	res.send('we goooood.');
 });
 
-app.get('/auth/google', passport.authenticate('google', {scope: ['profile', 'email']}))
 
-app.get('/auth/google/callback', passport.authenticate('google'))
+
 
 const PORT = process.env.PORT;
 app.listen(PORT || 5000, () => {
