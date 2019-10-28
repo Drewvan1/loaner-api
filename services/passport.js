@@ -25,7 +25,7 @@ const keys = require('../config/keys')
 passport.use(new GoogleStrategy({
 	clientID: keys.googleClientID,
 	clientSecret: keys.googleClientSecret,
-	callbackURL: '/auth/google/callback'
+	callbackURL: '/auth/google/callback'  // relative path, if running through proxy need to add another key-value pair of 'proxy: true'
 	}, 
 	(accessToken, refreshToken, profile , done) => {
 		// search database for googleId contained in the profile, if there return user, if not create user and return

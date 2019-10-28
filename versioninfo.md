@@ -14,3 +14,4 @@ need to complete:
 
 done: 
 - added google oauth
+- added session control
