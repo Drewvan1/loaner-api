@@ -8,6 +8,7 @@ const Loaner = require('./models/Loaner');
 const User = require('./models/User')
 const Reservation = require('./models/Reservation')
 
+// ========== TEST DATA ==================
 const testUserData = [
     // email: String,
     // created: { type: Date, default: Date.now },
@@ -34,80 +35,53 @@ const testReservationData = [
 ]
 
 
-const testLoanerData = [
-    {
-        identifier: {
-            stockNum: 12345,
-            vin: '1234567890ABCDEFG',
-            plate: 'VANS1',
-            year: '2019',
-            model: 'Pilot',
-            trim: 'EX-L'
-        },
-        inFleet: true,
-        enteredFleet: new Date,
-        exitedFleet: new Date,
-        isReserved: true,
-        isOut: false
-    },
-    {
-        identifier: {
-            stockNum: 54321,
-            vin: 'ABCDEFG1234567890',
-            plate: 'VANS5',
-            year: '2019',
-            model: 'CR-V',
-            trim: 'LX'
-        },
-        inFleet: false,
-        enteredFleet: new Date,
-        exitedFleet: new Date,
-        isReserved: false,
-        isOut: false
-    },
-    {
-        identifier: {
-            stockNum: 15423,
-            vin: 'A1S2D3F4G5H6J7K84',
-            plate: 'VANS9',
-            year: '2019',
-            model: 'CIVIC',
-            trim: 'SPORT'
-        },
-        inFleet: true,
-        enteredFleet: new Date,
-        exitedFleet: new Date,
-        isReserved: false,
-        isOut: true
-    }
+const testLoanerData = require('./loanerSeeds')
 
 
-]
+// ============ SEED DB WITH LOANERS ===============
+// function seedDb() {
+//     Loaner.remove({}, (err) => {
+//         if (err) {
+//             console.log(err)
+//         } else {
+//             console.log('cleared loaners')
+//             testLoanerData.forEach((seed) => {
+//                 Loaner.create(seed, (err, loaner) => {
+//                     if (err) {
+//                         console.log('error', err)
+//                     }
+//                 })
+//             })
+//         }
+//     })
+// }
 
-function seedDb() {
-    Reservation.remove({}, (err) => {
-        if (err) {
-            console.log(err)
-        } else {
-            console.log('db cleared of Users');
-            testReservationData.forEach( (seed) => {
-                Reservation.create(seed, (err, user) => {
-                    console.log('made it to user create')
-                    if (err) {
-                        console.log(err)
-                    } else {
-                        console.log('made it to else')
-                    }
-                })
-            })
 
-        }
+// ============ SEED DB WITH RESERVATIONS ===============
+// function seedDb() {
+//     Reservation.remove({}, (err) => {
+//         if (err) {
+//             console.log(err)
+//         } else {
+//             console.log('db cleared of Users');
+//             testReservationData.forEach( (seed) => {
+//                 Reservation.create(seed, (err, user) => {
+//                     console.log('made it to user create')
+//                     if (err) {
+//                         console.log(err)
+//                     } else {
+//                         console.log('made it to else')
+//                     }
+//                 })
+//             })
+//         }
+//     })
+// };
 
-    })
 
-};
 
-module.exports = seedDb;
+
+// module.exports = seedDb;
 
 
 // ========== LOANER SCHEMA BELOW ==========

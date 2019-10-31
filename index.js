@@ -14,7 +14,6 @@ require('./models/Trip');
 require('./models/Reservation')
 
 // ========= IMPORT HELPERS ================
-const seedDB = require('./seeds');
 const keys = require('./config/keys')
 
 // ============ IMPORT ROUTES =====================
@@ -24,15 +23,12 @@ const authRoutes = require('./routes/auth')
 
 // =========== SET UP MIDDLEWARE ===================
 app.use(bodyParser.urlencoded({extended: true}));
-app.use((req, res, next) => {
-	res.header('Access-Control-Allow-Origin', '*');  // for CORS management
-	next();
-  });
 
 // ============ DB INFO =====================
 mongoose.connect(keys.dbURI, {useNewUrlParser: true, useUnifiedTopology: true});
 
-seedDB();
+// const seedDB = require('./seeds');
+// seedDB();
 
 // ============ PASSPORT CONFIG =====================
 require('./services/passport')

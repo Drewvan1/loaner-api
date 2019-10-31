@@ -4,7 +4,7 @@ const router = express.Router();
 
 const Reservation = require('../models/Reservation')
 
-router.get('/reservations', (req, res) => {
+router.get('/api/reservations', (req, res) => {
     Reservation.find({ isActive: true }, (err, activeReservations) => {
         if (err) {
             console.log('ERROR', err);
@@ -14,7 +14,8 @@ router.get('/reservations', (req, res) => {
     })
 })
 
-router.post('/reservations/', (req, res) => {
+// should this be reservations/new -> reference RESTFUL routes
+router.post('/api/reservations/new', (req, res) => {
     const { fullName, reqModel } = req.body
     // will need to alter the Date object when you figure out how the JSON will come over from the front-end
     const apptTime = new Date(req.body.apptTime)

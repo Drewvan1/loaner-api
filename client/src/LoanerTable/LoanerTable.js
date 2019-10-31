@@ -11,11 +11,11 @@ const LoanerTable = ({ loaners }) => {
     const loanerArr = loaners.map((loaner, i) => {
         return  (
                 <LoanerRow 
-                key={loaner.vin} 
-                stockNum={loaner.stockNum} 
-                plate={loaner.plate} 
-                ymm={`${loaner.year} ${loaner.model} ${loaner.trim}`} 
-                isRes={`${loaner.isRes}`} isOut={`${loaner.isOut}`} 
+                key={loaner._id} 
+                stockNum={loaner.identifiers.stockNum} 
+                plate={loaner.identifiers.plate} 
+                ymm={`${loaner.identifiers.year} ${loaner.identifiers.model} ${loaner.identifiers.trim}`} 
+                isRes={`${loaner.isReserved}`} isOut={`${loaner.isOut}`} 
                 />)
         //return <LoanerRow />
     

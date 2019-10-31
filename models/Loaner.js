@@ -4,12 +4,13 @@ const mongoose = require('mongoose');
 const loanerSchema = new mongoose.Schema({
     created: { type: Date, default: Date.now },
     identifiers: {
-        stockNum: Number,
+        stockNum: String,
         vin: String,
         plate: String,
         year: String,
         model: String,
-        trim: String
+        trim: String,
+        color: String
     },
     // need to figure out a way to designate availablilty
 
@@ -17,9 +18,9 @@ const loanerSchema = new mongoose.Schema({
     // see YelpCamp example.  see relationship between Campgrounds and Comments
 
 
-    inFleet: Boolean,
-    enteredFleet: Boolean,
-    exitedFleet: Boolean,
+    inFleet: {type: Boolean, default: true},
+    enteredFleet: Date,
+    exitedFleet: Date,
     // automatic data
     // automaticData: {
     //     currMiles: Number,
@@ -29,8 +30,8 @@ const loanerSchema = new mongoose.Schema({
     //         lat: Schema.Types.Decimal128
     //     }
     // }
-    isReserved: Boolean,
-    isOut: Boolean
+    isReserved: {type: Boolean, default: false},
+    isOut: {type: Boolean, default: false}
 });
 
 const Loaner = mongoose.model('loaners', loanerSchema);

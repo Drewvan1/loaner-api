@@ -27,19 +27,32 @@ passport.use(new GoogleStrategy({
 	clientSecret: keys.googleClientSecret,
 	callbackURL: '/auth/google/callback'  // relative path, if running through proxy need to add another key-value pair of 'proxy: true'
 	}, 
-	(accessToken, refreshToken, profile , done) => {
+	async (accessToken, refreshToken, profile , done) => {
 		// search database for googleId contained in the profile, if there return user, if not create user and return
-		User.findOne({googleId: profile.id})
-			.then(existingUser => {
-				if (existingUser) {
-					done(null, existingUser)
-				} else {
-					new User({googleId: profile.id, email: profile.emails[0].value, name: `${profile.name.givenName} ${profile.name.familyName[0]}`})
-						.save()
-						.then(user => done(null, user))
-				}
-			})
-			.catch(err => console.log(err))
+		try {
+			const existingUser = await User.findOne({googleId: profile.id})
+			
+			if (existingUser) {
+				done(null, existingUser)
+			} else {
+				const user = await new User({googleId: profile.id, email: profile.emails[0].value, name: `${profile.name.givenName} ${profile.name.familyName[0]}`})
+				done(null, user)
+			}
+		} catch (error) {
+			console.log(error)
+		}
+		
+		// User.findOne({googleId: profile.id})
+		// 	.then(existingUser => {
+		// 		if (existingUser) {
+		// 			done(null, existingUser)
+		// 		} else {
+		// 			new User({googleId: profile.id, email: profile.emails[0].value, name: `${profile.name.givenName} ${profile.name.familyName[0]}`})
+		// 				.save()
+		// 				.then(user => done(null, user))
+		// 		}
+		// 	})
+		// 	.catch(err => console.log(err))
 	}
 ))
 

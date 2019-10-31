@@ -2,14 +2,21 @@
 const express = require('express');
 const router = express.Router();
 
+const Loaner = require('../models/Loaner')
 
 // use this route to get all inFleet loaners
-router.get('/loaners', (req, res) => {
-    res.send('loaners connected')
+router.get('/api/loaners', (req, res) => {
+    Loaner.find({ inFleet: true }, (err, inFleetLoaners) => {
+        if (err) {
+            console.log(err)
+        } else {
+            res.json(inFleetLoaners)
+        }
+    })
 })
 
-router.post('/loaners/:id', (req, res) => {
-    res.send('loaners post route connected')
+router.post('/api/loaners/new', (req, res) => {
+    res.send('new loaners post route connected')
 })
 
 router.put('/loaners/:id', (req, res) => {

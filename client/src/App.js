@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import './App.css';
 
 // test data, needs to be eliminated when api connected
-import { loaners } from './loaners'
+//import { loaners } from './loaners'
 //import { reservations } from './reservations'
 
 import Paper from '@material-ui/core/Paper';
@@ -14,7 +14,7 @@ import ReservationTable from './ReservationTable/ReservationTable'
 import LoanerButtons from './LoanerTable/LoanerButtons'
 import SearchBox from './LoanerTable/SearchBox';
 
-import { setSearchField, fetchReservations } from './actions'
+import { setSearchField, fetchReservations, fetchLoaners } from './actions'
 
 const mapStateToProps = (state) => {
   return {
@@ -22,10 +22,13 @@ const mapStateToProps = (state) => {
     searchField: state.searchVehicles.searchField,
     
     reservations: state.requestReservations.reservations,
-    isPending: state.requestReservations.isPending,
+    resIsPending: state.requestReservations.isPending,
     resError: state.requestReservations.resError,
     
-    loaners: loaners  // now coming from loaner seed file => will need to make ajax call to db to retrieve json in future
+    //loaners: loaners  // now coming from loaner seed file => will need to make ajax call to db to retrieve json in future
+    loaners: state.requestLoaners.loaners,
+    loanersIsPending: state.requestLoaners.loanersIsPending,
+    loanersError: state.requestLoaners.loanersError
   }
 }
 
@@ -33,7 +36,8 @@ const MapDispatchToProps = (dispatch) => {
   return {
       onSearchChange: (e) => dispatch(setSearchField(e.target.value)),
       // onRequestReservations: () => fetchReservations(dispatch)
-      onRequestReservations: () => dispatch(fetchReservations())
+      onRequestReservations: () => dispatch(fetchReservations()),
+      onRequestLoaners: () => dispatch(fetchLoaners())
   }
 }
 
@@ -44,6 +48,7 @@ class App extends Component {
 
   componentDidMount() {
     this.props.onRequestReservations()
+    this.props.onRequestLoaners()
   }
 
   render() {
@@ -54,7 +59,7 @@ class App extends Component {
     
     // eslint-disable-next-line
     const filteredLoaners = loaners.filter(loaner => {
-      const combinedString = `${loaner.stockNum}${loaner.plate}${loaner.year} ${loaner.model} ${loaner.trim}`
+      const combinedString = `${loaner.identifiers.stockNum}${loaner.identifiers.plate}${loaner.identifiers.year} ${loaner.identifiers.model} ${loaner.identifiers.trim}`
         if (combinedString.toLowerCase().includes(searchField.toLowerCase())) {
           return loaner
         }
