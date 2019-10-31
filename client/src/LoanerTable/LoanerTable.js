@@ -15,7 +15,7 @@ const LoanerTable = ({ loaners }) => {
                 stockNum={loaner.identifiers.stockNum} 
                 plate={loaner.identifiers.plate} 
                 ymm={`${loaner.identifiers.year} ${loaner.identifiers.model} ${loaner.identifiers.trim}`} 
-                isRes={`${loaner.isReserved}`} isOut={`${loaner.isOut}`} 
+                isReserved={`${loaner.isReserved}`} isOut={`${loaner.isOut}`} 
                 />)
         //return <LoanerRow />
     

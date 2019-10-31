@@ -52,11 +52,8 @@ class App extends Component {
   }
 
   render() {
-
     const { loaners, onSearchChange, searchField, reservations } = this.props
-    
     // function to filter loaner table for searchbox values
-    
     // eslint-disable-next-line
     const filteredLoaners = loaners.filter(loaner => {
       const combinedString = `${loaner.identifiers.stockNum}${loaner.identifiers.plate}${loaner.identifiers.year} ${loaner.identifiers.model} ${loaner.identifiers.trim}`
