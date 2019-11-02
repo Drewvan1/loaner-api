@@ -1,12 +1,9 @@
 
 import { 
     CHANGE_SEARCH_FIELD,
-    REQUEST_RESERVATIONS_PENDING,
-    REQUEST_RESERVATIONS_SUCCESS,
-    REQUEST_RESERVATIONS_FAILED,
-    REQUEST_LOANERS_PENDING,
-    REQUEST_LOANERS_SUCCESS,
-    REQUEST_LOANERS_FAILED
+    REQUEST_RESERVATIONS_PENDING, REQUEST_RESERVATIONS_SUCCESS, REQUEST_RESERVATIONS_FAILED,
+    REQUEST_LOANERS_PENDING, REQUEST_LOANERS_SUCCESS, REQUEST_LOANERS_FAILED,
+    REQUEST_USER_PENDING, REQUEST_USER_SUCCESS, REQUEST_USER_FAILED
 } from './constants'
 
 // library to help AJAX calls
@@ -16,8 +13,6 @@ export const setSearchField = (text) => ({
     type: CHANGE_SEARCH_FIELD,
     payload: text
 })
-
-
 //const apiServer = 'http://localhost:5000/reservations'  // no longer need this, set up proxy server in setupProxy.js file
 //const apiServer = '/reservations'
 
@@ -35,4 +30,11 @@ export const fetchLoaners = () => (dispatch) => {
     axios.get('/api/loaners')
         .then(res => dispatch({type: REQUEST_LOANERS_SUCCESS, payload: res.data}))
         .catch(err => dispatch({type: REQUEST_LOANERS_FAILED, payload: err}))
+}
+
+export const fetchUser = () => (dispatch) => {
+    dispatch({type: REQUEST_USER_PENDING})
+    axios.get('/api/current_user')
+        .then(res => dispatch({type: REQUEST_USER_SUCCESS, payload: res.data}))
+        .catch(err => dispatch({type: REQUEST_USER_FAILED, payload: err}))
 }

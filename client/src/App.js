@@ -49,7 +49,7 @@ class App extends Component {
           <BrowserRouter>
             <div>
               <Route exact path='/' component={rootPage} />
-              <Route path='/loaners' component={LoanerPage}/>
+              <Route exact path='/loaners' component={LoanerPage}/>
             </div>
           </BrowserRouter>
       </div>

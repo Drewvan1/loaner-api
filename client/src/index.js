@@ -11,13 +11,13 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-import { searchVehicles, requestReservations, requestLoaners } from './reducers'
+import { searchVehicles, requestReservations, requestLoaners, requestUser } from './reducers'
 
 import 'tachyons'  // css library
 
 const logger = createLogger()
 
-const rootReducer = combineReducers({ searchVehicles, requestReservations, requestLoaners})
+const rootReducer = combineReducers({ searchVehicles, requestReservations, requestLoaners, requestUser})
 const store = createStore(rootReducer, applyMiddleware(thunkMiddleware, logger))
 
 
