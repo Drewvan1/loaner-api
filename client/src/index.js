@@ -4,20 +4,20 @@ import ReactDOM from 'react-dom';
 
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware, combineReducers } from 'redux'
-import { createLogger } from 'redux-logger'
+import { createLogger } from 'redux-logger'  // helps with debugging with redux
 import thunkMiddleware from 'redux-thunk'
 
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-import { searchVehicles, requestReservations, requestLoaners } from './reducers'
+import { searchVehicles, requestReservations, requestLoaners, requestUser } from './reducers'
 
-import 'tachyons'
+import 'tachyons'  // css library
 
 const logger = createLogger()
 
-const rootReducer = combineReducers({ searchVehicles, requestReservations, requestLoaners})
+const rootReducer = combineReducers({ searchVehicles, requestReservations, requestLoaners, requestUser})
 const store = createStore(rootReducer, applyMiddleware(thunkMiddleware, logger))
 
 

@@ -3,7 +3,7 @@ const proxy = require('http-proxy-middleware');
 // sets up proxy server so when receives a route appends a different domain
 
 module.exports = function(app) {
-    app.use(proxy(['/api', 'auth/google'], 
+    app.use(proxy(['/api', '/auth/google'], 
         { target: 'http://localhost:5000/' }
     ));
 }
