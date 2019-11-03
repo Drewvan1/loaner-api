@@ -1,2 +1,2 @@
 # loaner-api
-backend of loaner app
+working on app to help manage loaner fleet at a car dealership.
