@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const TripSchema = require('./Trip')
 
 
 const loanerSchema = new mongoose.Schema({
@@ -14,9 +15,8 @@ const loanerSchema = new mongoose.Schema({
     },
     // need to figure out a way to designate availablilty
 
-    // can i create an array of custom Trip objects? in a mongoose Schema?
-    // see YelpCamp example.  see relationship between Campgrounds and Comments
-
+    // subdocument of Trip objects
+    trips: [TripSchema],
 
     inFleet: {type: Boolean, default: true},
     enteredFleet: Date,

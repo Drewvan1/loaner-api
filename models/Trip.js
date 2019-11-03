@@ -11,10 +11,11 @@ const tripSchema = new mongoose.Schema({
     outVars: {
         outDate: Date,
         outMiles: Number,
-        outFuel: Number
+        outFuel: Number,
+        outDamage: String
     },
     
-    isComplete: Boolean,
+    isComplete: {type: Boolean, default: false},
 
     //in variables
     inVars: {
