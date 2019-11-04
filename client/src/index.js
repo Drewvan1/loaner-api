@@ -6,6 +6,7 @@ import { Provider } from 'react-redux'
 import { createStore, applyMiddleware, combineReducers } from 'redux'
 import { createLogger } from 'redux-logger'  // helps with debugging with redux
 import thunkMiddleware from 'redux-thunk'
+//import { reducer as form } from 'redux-form'
 
 import './index.css';
 import App from './App';
