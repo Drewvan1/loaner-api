@@ -27,9 +27,18 @@ class Navbar extends Component {
     }
 
     renderContent(){
-        const loginJSX = <a className={"f6 dib white bg-animate hover-bg-white hover-black no-underline pv2 ph4 br-pill ba b--white-20"} href="/auth/google">Sign In With Google</a>
-        const logoutJSX = <a className={"f6 dib white bg-animate hover-bg-white hover-black no-underline pv2 ph4 br-pill ba b--white-20"} href="/api/logout">Logout</a>
-    
+        const loginJSX = 
+            <div className={"flex-grow pa3 flex items-center"}>
+                <a className={"f6 dib white bg-animate hover-bg-white hover-black no-underline pv2 ph4 br-pill ba b--white-20"} href="/auth/google">Sign In With Google</a>
+            </div>
+
+        const logoutJSX = 
+            <div className={"flex-grow pa3 flex items-center"}>
+                <a className={"f6 link dib white dim mr3 mr4-ns"} href="/test">{this.props.user.name}</a>
+                <a className={"f6 link dib white dim mr3 mr4-ns"} href="/api/reservations/new">Reserve Loaner</a>
+                <a className={"f6 dib white bg-animate hover-bg-white hover-black no-underline pv2 ph4 br-pill ba b--white-20"} href="/api/logout">Logout</a>
+            </div>
+
         return (this.props.user ? logoutJSX: loginJSX)
     }
 
@@ -37,14 +46,11 @@ class Navbar extends Component {
     render(){
         return(
             <nav className={"flex justify-between bb b--white-10 bg-dark-blue"}>
+                
                 {/* <Link to={this.props.user ? '/loaners' : '/'}>
                     Van's Honda
                 </Link> */}
-                <div className={"flex-grow pa3 flex items-center"}>
-                    <a className={"f6 link dib white dim mr3 mr4-ns"} href="/test">{this.props.user.name}</a>
-                    <a className={"f6 link dib white dim mr3 mr4-ns"} href="/api/reservations/new">Reserve Loaner</a>
-                    {this.renderContent()}
-                </div>
+                {this.renderContent()}
             </nav>
         )
     }
