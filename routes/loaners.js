@@ -2,7 +2,9 @@
 const express = require('express');
 const router = express.Router();
 
-const Loaner = require('../models/Loaner')
+const mongoose = require('mongoose')
+
+const Loaner = mongoose.model('loaners')
 
 // use this route to get all inFleet loaners
 router.get('/api/loaners', (req, res) => {

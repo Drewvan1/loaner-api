@@ -8,11 +8,10 @@ const reservationSchema = new mongoose.Schema({
     // example: var myDate = new Date("2016-05-18T16:00:00Z");
     apptTime: Date,
     reqModel: { type: String, default: 'No Pref' },
-    isActive: { type: Boolean, default: true}
+    isActive: { type: Boolean, default: true},
+    // add relationship to user -> each reservation will "belong" to a particular user
+    _user: { type: mongoose.Schema.Types.ObjectId , ref: 'User'}
+    // additional fields -> toDelete: Date, 
 });
 
-//userSchema.plugin(passportLocalMongoose);  // originally had this after the User constant declaration, which had the result of not attaching the passportLocalMongoose functionality on User
-
-const Reservation = mongoose.model('reservations', reservationSchema);
-
-module.exports = Reservation;
+mongoose.model('reservations', reservationSchema);

@@ -34,6 +34,4 @@ const loanerSchema = new mongoose.Schema({
     isOut: {type: Boolean, default: false}
 });
 
-const Loaner = mongoose.model('loaners', loanerSchema);
-
-module.exports = Loaner;
+mongoose.model('loaners', loanerSchema);

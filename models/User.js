@@ -10,8 +10,6 @@ const userSchema = new mongoose.Schema({
     access: { type: Number, default: 5}  // relates to if can make reservations or appointments or only check in cars
 });
 
-//userSchema.plugin(passportLocalMongoose);  // originally had this after the User constant declaration, which had the result of not attaching the passportLocalMongoose functionality on User
-
 mongoose.model('users', userSchema);
 
 // example of profile object in keys.js

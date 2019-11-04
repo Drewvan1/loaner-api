@@ -1,8 +1,9 @@
-
 const express = require('express');
 const router = express.Router();
 
-const Reservation = require('../models/Reservation')
+const mongoose = require('mongoose')
+
+const Reservation = mongoose.model('reservations')
 
 router.get('/api/reservations', (req, res) => {
     Reservation.find({ isActive: true }, (err, activeReservations) => {

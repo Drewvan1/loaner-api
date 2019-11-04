@@ -10,7 +10,6 @@ const app = express();
 // ========= RUN TO CREATE MODLES ================
 require('./models/User');
 require('./models/Loaner');
-require('./models/Trip');
 require('./models/Reservation')
 
 // ========= IMPORT HELPERS ================
