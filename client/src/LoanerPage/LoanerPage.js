@@ -13,10 +13,11 @@ const mapStateToProps = (state) => {
     resIsPending: state.requestReservations.isPending,
     resError: state.requestReservations.resError,
     
-    //loaners: loaners  // now coming from loaner seed file => will need to make ajax call to db to retrieve json in future
     loaners: state.requestLoaners.loaners,
     loanersIsPending: state.requestLoaners.loanersIsPending,
-    loanersError: state.requestLoaners.loanersError
+    loanersError: state.requestLoaners.loanersError,
+
+    searchField: state.searchVehicles.searchField
   }
 }
 
@@ -38,15 +39,15 @@ class LoanerPage extends Component {
   }
 
   render() {
-    const { loaners, reservations } = this.props
+    const { loaners, reservations, searchField } = this.props
 
-    // eslint-disable-next-line
-    // const filteredLoaners = loaners.filter(loaner => {
-    //   const combinedString = `${loaner.identifiers.stockNum}${loaner.identifiers.plate}${loaner.identifiers.year} ${loaner.identifiers.model} ${loaner.identifiers.trim}`
-    //     if (combinedString.toLowerCase().includes(searchField.toLowerCase())) {
-    //       return loaner
-    //     }
-    // })
+    //eslint-disable-next-line
+    const filteredLoaners = loaners.filter(loaner => {
+      const combinedString = `${loaner.identifiers.stockNum}${loaner.identifiers.plate}${loaner.identifiers.year} ${loaner.identifiers.model} ${loaner.identifiers.trim}`
+        if (combinedString.toLowerCase().includes(searchField.toLowerCase())) {
+          return loaner
+        }
+    })
 
     // function to sort reservations by apptTIme
     const sortedReservations = reservations.sort(function (a, b) {
@@ -55,7 +56,7 @@ class LoanerPage extends Component {
 
     return (
       <div>
-          <LoanerTable loaners={loaners} />
+          <LoanerTable loaners={filteredLoaners} />
           <ReservationTable reservations={sortedReservations}/>
       </div>
     )

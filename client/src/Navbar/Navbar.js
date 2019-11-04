@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 // import { Link } from 'react-router-dom'
 
+import SearchBox from './SearchBox'
+import { setSearchField } from '../actions'
+
 import './navbar.css'
+
 
 import { fetchUser } from '../actions'
 
@@ -16,7 +20,8 @@ const mapStateToProps = (state) => {
 
 const MapDispatchToProps = (dispatch) => {
     return {
-        onRequestUser: () => dispatch(fetchUser())
+        onRequestUser: () => dispatch(fetchUser()),
+        onSearchChange: (e) => dispatch(setSearchField(e.target.value))
     }
 }
 
@@ -27,6 +32,7 @@ class Navbar extends Component {
     }
 
     renderContent(){
+        const { onSearchChange } = this.props
         const loginJSX = 
             <div className={"flex-grow pa3 flex items-center"}>
                 <a className={"f6 dib white bg-animate hover-bg-white hover-black no-underline pv2 ph4 br-pill ba b--white-20"} href="/auth/google">Sign In With Google</a>
@@ -37,6 +43,7 @@ class Navbar extends Component {
                 <a className={"f6 link dib white dim mr3 mr4-ns"} href="/test">{this.props.user.name}</a>
                 <a className={"f6 link dib white dim mr3 mr4-ns"} href="/api/reservations/new">Reserve Loaner</a>
                 <a className={"f6 dib white bg-animate hover-bg-white hover-black no-underline pv2 ph4 br-pill ba b--white-20"} href="/api/logout">Logout</a>
+                <SearchBox onSearchChange = {onSearchChange}/>
             </div>
 
         return (this.props.user ? logoutJSX: loginJSX)

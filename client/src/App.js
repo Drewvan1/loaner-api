@@ -16,19 +16,16 @@ import LoanerPage from './LoanerPage/LoanerPage'
 // import LoanerHeader from './LoanerTable/LoanerHeader';
 import Navbar from './Navbar/Navbar'
 
-import { setSearchField } from './actions'
-
 const mapStateToProps = (state) => {
   return {
     // from reducers.js
-    searchField: state.searchVehicles.searchField,
+    
   }
 }
 
 const MapDispatchToProps = (dispatch) => {
   return {
-      onSearchChange: (e) => dispatch(setSearchField(e.target.value)),
-      // onRequestReservations: () => fetchReservations(dispatch)
+      
   }
 }
 
