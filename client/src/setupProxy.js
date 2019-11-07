@@ -18,3 +18,9 @@ module.exports = function(app) {
 // 	res.header('Access-Control-Allow-Origin', '*');  // for CORS management
 // 	next();
 //   });
+
+
+
+
+// when trying to searv off of my computer:
+// device_id and device_name are required for private IP

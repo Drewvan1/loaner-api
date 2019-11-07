@@ -6,7 +6,7 @@ import { Provider } from 'react-redux'
 import { createStore, applyMiddleware, combineReducers } from 'redux'
 import { createLogger } from 'redux-logger'  // helps with debugging with redux
 import thunkMiddleware from 'redux-thunk'
-//import { reducer as form } from 'redux-form'
+import { reducer as form } from 'redux-form'
 
 import './index.css';
 import App from './App';
@@ -18,7 +18,7 @@ import 'tachyons'  // css library
 
 const logger = createLogger()
 
-const rootReducer = combineReducers({ searchVehicles, requestReservations, requestLoaners, requestUser})
+const rootReducer = combineReducers({ searchVehicles, requestReservations, requestLoaners, requestUser, form})
 const store = createStore(rootReducer, applyMiddleware(thunkMiddleware, logger))
 
 

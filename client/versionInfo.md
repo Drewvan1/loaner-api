@@ -57,3 +57,10 @@ needs:
 
 completed: 
 - successfully imported reservations from db connected to loaner-api
+
+
+NEXT STEPS
+creating reservation form functionality
+
+
+need to test reservation form
