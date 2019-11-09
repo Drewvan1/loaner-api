@@ -22,6 +22,7 @@ const authRoutes = require('./routes/auth')
 
 // =========== SET UP MIDDLEWARE ===================
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json())
 
 // ============ DB INFO =====================
 mongoose.connect(keys.dbURI, {useNewUrlParser: true, useUnifiedTopology: true});

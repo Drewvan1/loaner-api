@@ -17,10 +17,14 @@ router.get('/api/reservations', (req, res) => {
 
 // should this be reservations/new -> reference RESTFUL routes
 router.post('/api/reservations/new', (req, res) => {
+    console.log(req.body)
+    console.log(req.body.fullName, req.body.reqModel, req.body.apptTime)
     const { fullName, reqModel } = req.body
-    // will need to alter the Date object when you figure out how the JSON will come over from the front-end
     const apptTime = new Date(req.body.apptTime)
-    const createdBy = 2
+    // will need to alter the Date object when you figure out how the JSON will come over from the front-end
+
+    const createdBy = req.user.name
+    //const createdBy = 'Drew V'
 
     const newReservation = { fullName, apptTime, reqModel, createdBy }
 
