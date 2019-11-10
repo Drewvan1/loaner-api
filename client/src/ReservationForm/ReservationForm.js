@@ -5,6 +5,9 @@ import { withRouter } from 'react-router-dom'
 
 import { postReservation } from '../actions'
 
+import './reservationForm.css'
+
+
 const mapStateToProps = (state) => {
     return {
         // user: state.requestUser.user,
@@ -34,13 +37,15 @@ class ReservationForm extends Component {
             // hundle submit sends an object with the values contained within it
             <form onSubmit={handleSubmit(reservation => onResFormSubmit(reservation, history))}>
                 <div>
-                     <label>Client Name</label>
-                    <div>
-                        <Field name="fullName" component="input" type="text" placeholder="Who is the reservation for?" />
-                    </div>
-                    <div>
-                        {/* need to accomplish some error handling / validation here */}
-                        {/* {touched && error} */}
+                    <div className={"mt3"}>
+                        <label className={"db fw4 lh-copy f6"}>Client Name</label>
+                        <div>
+                            <Field name="fullName" component="input" type="text" placeholder="Who is the reservation for?" />
+                        </div>
+                        <div>
+                            {/* need to accomplish some error handling / validation here */}
+                            {/* {touched && error} */}
+                        </div>
                     </div>
                 </div>   
                 <div>
