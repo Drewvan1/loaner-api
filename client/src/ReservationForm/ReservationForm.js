@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 
 import { postReservation } from '../actions'
 
@@ -17,7 +18,7 @@ const mapStateToProps = (state) => {
 
 const MapDispatchToProps = (dispatch) => {
     return {
-        onResFormSubmit: reservation => dispatch(postReservation(reservation))
+        onResFormSubmit: (reservation, history) => dispatch(postReservation(reservation, history))
     }
 }
 
@@ -27,11 +28,11 @@ class ReservationForm extends Component {
 
         // may need error, touched out of this.props as well
         // can do field level validation per https://redux-form.com/8.2.2/docs/api/field.md/
-        const { handleSubmit, pristine, reset, submitting, onResFormSubmit } = this.props
+        const { handleSubmit, pristine, reset, submitting, onResFormSubmit, history } = this.props
 
         return(
             // hundle submit sends an object with the values contained within it
-            <form onSubmit={handleSubmit(reservation => onResFormSubmit(reservation))}>
+            <form onSubmit={handleSubmit(reservation => onResFormSubmit(reservation, history))}>
                 <div>
                      <label>Client Name</label>
                     <div>
@@ -85,6 +86,6 @@ function validate(values){
     return errors
 }
 
-ReservationForm = connect(mapStateToProps, MapDispatchToProps)(ReservationForm)
+ReservationForm = connect(mapStateToProps, MapDispatchToProps)(withRouter(ReservationForm))
 
 export default reduxForm({ form: 'reservationForm', validate: validate})(ReservationForm)

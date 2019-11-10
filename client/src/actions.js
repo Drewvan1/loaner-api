@@ -39,11 +39,16 @@ export const fetchUser = () => (dispatch) => {
         .catch(err => dispatch({type: REQUEST_USER_FAILED, payload: err}))
 }
 
-export const postReservation = ({ fullName, reqModel, apptTime }) => (dispatch) => {
+export const postReservation = (reservation, history) => (dispatch) => {
+    const { fullName, reqModel, apptTime } = reservation
+    
     dispatch({type: POST_RESERVATION_PENDING})
     console.log({fullName, reqModel, apptTime})
     axios.post('/api/reservations/new', {fullName, reqModel, apptTime})
         .then(res => dispatch({type: POST_RESERVATION_SUCCESS, payload: res.data}))
+        .then(history.push('/loaners'))
         .catch(err => dispatch({type: POST_RESERVATION_FAILED, payload: err}))
+
+    
 }
 
