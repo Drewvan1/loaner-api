@@ -57,3 +57,14 @@ needs:
 
 completed: 
 - successfully imported reservations from db connected to loaner-api
+
+
+NEXT STEPS
+creating reservation form functionality
+
+
+wire reservation form to db
+create constant/action/reducer? -> will be async
+once submitted will need to redirect to loaners page
+
+need to test reservation form

@@ -4,14 +4,9 @@ import { BrowserRouter, Route } from 'react-router-dom'
 
 import './App.css';
 
-// test data, needs to be eliminated when api connected
-//import { loaners } from './loaners'
-//import { reservations } from './reservations'
-
-//import Paper from '@material-ui/core/Paper';
-
 import rootPage from './rootPage/rootpage'
 import LoanerPage from './LoanerPage/LoanerPage'
+import ReservationForm from './ReservationForm/ReservationForm'
 
 // import LoanerHeader from './LoanerTable/LoanerHeader';
 import Navbar from './Navbar/Navbar'
@@ -41,14 +36,13 @@ class App extends Component {
 
     return (
       <div className="container">
-          <Navbar />
+        <BrowserRouter>
+          <Route path='/' component={Navbar} />
             {/* <SearchBox onSearchChange = {onSearchChange}/> */}
-          <BrowserRouter>
-            <div>
-              <Route exact path='/' component={rootPage} />
-              <Route exact path='/loaners' component={LoanerPage}/>
-            </div>
-          </BrowserRouter>
+          <Route exact path='/' component={rootPage} />
+          <Route exact path='/loaners' component={LoanerPage} />
+          <Route exact path='/reservations/new' component={ReservationForm} />
+        </BrowserRouter>
       </div>
     )
   }

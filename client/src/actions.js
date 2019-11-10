@@ -1,9 +1,9 @@
-
 import { 
     CHANGE_SEARCH_FIELD,
     REQUEST_RESERVATIONS_PENDING, REQUEST_RESERVATIONS_SUCCESS, REQUEST_RESERVATIONS_FAILED,
     REQUEST_LOANERS_PENDING, REQUEST_LOANERS_SUCCESS, REQUEST_LOANERS_FAILED,
-    REQUEST_USER_PENDING, REQUEST_USER_SUCCESS, REQUEST_USER_FAILED
+    REQUEST_USER_PENDING, REQUEST_USER_SUCCESS, REQUEST_USER_FAILED,
+    POST_RESERVATION_PENDING, POST_RESERVATION_SUCCESS, POST_RESERVATION_FAILED
 } from './constants'
 
 // library to help AJAX calls
@@ -38,3 +38,17 @@ export const fetchUser = () => (dispatch) => {
         .then(res => dispatch({type: REQUEST_USER_SUCCESS, payload: res.data}))
         .catch(err => dispatch({type: REQUEST_USER_FAILED, payload: err}))
 }
+
+export const postReservation = (reservation, history) => (dispatch) => {
+    const { fullName, reqModel, apptTime } = reservation
+    
+    dispatch({type: POST_RESERVATION_PENDING})
+    console.log({fullName, reqModel, apptTime})
+    axios.post('/api/reservations/new', {fullName, reqModel, apptTime})
+        .then(res => dispatch({type: POST_RESERVATION_SUCCESS, payload: res.data}))
+        .then(history.push('/loaners'))
+        .catch(err => dispatch({type: POST_RESERVATION_FAILED, payload: err}))
+
+    
+}
+
