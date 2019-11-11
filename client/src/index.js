@@ -7,6 +7,7 @@ import { createStore, applyMiddleware, combineReducers } from 'redux'
 import { createLogger } from 'redux-logger'  // helps with debugging with redux
 import thunkMiddleware from 'redux-thunk'
 import { reducer as form } from 'redux-form'
+import { BrowserRouter } from 'react-router-dom'
 
 import './index.css';
 import App from './App';
@@ -25,7 +26,9 @@ const store = createStore(rootReducer, applyMiddleware(thunkMiddleware, logger))
 
 ReactDOM.render(
                 <Provider store={store}>
-                    <App />
+                    <BrowserRouter>
+                        <App />
+                    </BrowserRouter>
                 </Provider>
                 , document.getElementById('root'));
 // If you want your app to work offline and load faster, you can change

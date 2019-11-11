@@ -46,7 +46,7 @@ export const postReservation = (reservation, history) => (dispatch) => {
     console.log({fullName, reqModel, apptTime})
     axios.post('/api/reservations/new', {fullName, reqModel, apptTime})
         .then(res => dispatch({type: POST_RESERVATION_SUCCESS, payload: res.data}))
-        .then(history.push('/loaners'))
+        .then(history.push('/'))
         .catch(err => dispatch({type: POST_RESERVATION_FAILED, payload: err}))
 
     

@@ -60,11 +60,17 @@ completed:
 
 
 NEXT STEPS
-creating reservation form functionality
+
+what's left?
+
+- click on loaner to checkin / checkout
+
+- how do we want to delete reservation routes?
+ -> all manually?
+ -> delete at midnight of day of reservation -> send email that reservation is deleted?
 
 
-wire reservation form to db
-create constant/action/reducer? -> will be async
-once submitted will need to redirect to loaners page
 
-need to test reservation form
+
+- style app
+
