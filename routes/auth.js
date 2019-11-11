@@ -6,7 +6,7 @@ const passport = require('passport')
 router.get('/auth/google', passport.authenticate('google', {scope: ['profile', 'email']}))
 
 router.get('/auth/google/callback', passport.authenticate('google'), (req, res) => {
-    res.redirect('/loaners')
+    res.redirect('/')
 })
 
 router.get('/api/current_user', (req, res) => {

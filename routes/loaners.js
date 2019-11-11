@@ -21,7 +21,7 @@ router.post('/api/loaners/new', (req, res) => {
     res.send('new loaners post route connected')
 })
 
-router.put('/loaners/:id', (req, res) => {
+router.put('/api/loaners/:id', (req, res) => {
     res.send('loaners put route connected')
 })
 
