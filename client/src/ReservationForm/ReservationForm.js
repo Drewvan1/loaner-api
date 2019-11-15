@@ -13,9 +13,6 @@ const mapStateToProps = (state) => {
         // user: state.requestUser.user,
         // userIsPending: state.requestUser.userIsPending,
         // userError: state.requestUser.userError
-
-
-
     }
 }
 

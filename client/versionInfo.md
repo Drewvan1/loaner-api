@@ -63,14 +63,35 @@ NEXT STEPS
 
 what's left?
 
-- click on loaner to checkin / checkout
+- connect automatic API?
 
+- create and wire up nav buttons
+    -> check-out loaner
+    -> check-in loaner
+
+- click on loaner to see more info
+    -> loaner card: automatic data, checkin / checkout buttons, trip data?
+
+- add / de-fleet loaners
+- polish reserve loaner form validation
 - how do we want to delete reservation routes?
- -> all manually?
- -> delete at midnight of day of reservation -> send email that reservation is deleted?
-
-
-
+    -> all manually?
+    -> delete at midnight of day of reservation -> send email that reservation is deleted?
 
 - style app
 
+
+
+CHECK-OUT FORM
+    -> create nav button
+    -> create form route
+    -> link button to form
+    -> create form (class-component)
+    -> can i console log the data?
+    ++++++++++++++++
+    -> will need to figure out how LOANERS and TRIPS schemas interact in MONGO
+    -> create routes to accept form data in DB
+    -> test db accepting data with postman2
+    ++++++++++++++++
+    -> link up form with DB
+    -> TEST!

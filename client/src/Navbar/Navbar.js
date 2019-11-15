@@ -41,8 +41,9 @@ class Navbar extends Component {
         const logoutJSX = 
             <div className={"flex-grow pa3 flex items-center"}>
                 <Link className={"f6 link dib white dim mr3 mr4-ns"} to='/'>Home</Link>
-                <a className={"f6 link dib white dim mr3 mr4-ns"} href="/test">{this.props.user.name}</a>
+                <div className={"f6 link dib white dim mr3 mr4-ns"} href="/test">{this.props.user.name}</div>
                 <Link className={"f6 link dib white dim mr3 mr4-ns br-pill b--white-20 ba pv2 ph4"} to="/reservations/new">Reserve Loaner</Link>
+                <Link className={"f6 link dib white dim mr3 mr4-ns br-pill b--white-20 ba pv2 ph4"} to="/loaners/checkout">Checkout Loaner</Link>
                 <SearchBox onSearchChange = {onSearchChange}/>
                 <div className={'flex items-center'}>
                     <a className={"f6 dib white bg-animate hover-bg-white hover-black no-underline pv2 ph4 br-pill ba b--white-20"} href="/api/logout">Logout</a>

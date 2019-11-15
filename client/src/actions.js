@@ -18,13 +18,16 @@ export const setSearchField = (text) => ({
 
 // need to use a higher order function here (eg function returning a function) because a typical action return is an object but
 //  redux-thunk is looking for a function.  when it sees that it knows the code may be asynchronous and therefore will listen for the promise response
- export const fetchReservations = () => (dispatch) => {
+
+// ========== FETCH RESERVATIONS FOR RESERVATION TABLE  ==========
+export const fetchReservations = () => (dispatch) => {
     dispatch({ type: REQUEST_RESERVATIONS_PENDING })
     axios.get('/api/reservations')
         .then(res => dispatch({ type: REQUEST_RESERVATIONS_SUCCESS, payload: res.data }))
         .catch(err => dispatch({ type: REQUEST_RESERVATIONS_FAILED, payload: err }))
 }
 
+// ========== FETCH LOANERS FOR LOANER TABLE  ==========
 export const fetchLoaners = () => (dispatch) => {
     dispatch({type: REQUEST_LOANERS_PENDING})
     axios.get('/api/loaners')
@@ -32,6 +35,7 @@ export const fetchLoaners = () => (dispatch) => {
         .catch(err => dispatch({type: REQUEST_LOANERS_FAILED, payload: err}))
 }
 
+// ========== FETCH USER FOR NAVBAR JSX RENDERING  ==========
 export const fetchUser = () => (dispatch) => {
     dispatch({type: REQUEST_USER_PENDING})
     axios.get('/api/current_user')
@@ -39,6 +43,7 @@ export const fetchUser = () => (dispatch) => {
         .catch(err => dispatch({type: REQUEST_USER_FAILED, payload: err}))
 }
 
+// ========== POST RESERVATION TO DB SCHEMA 'RESERVATIONS' ==========
 export const postReservation = (reservation, history) => (dispatch) => {
     const { fullName, reqModel, apptTime } = reservation
     
@@ -47,8 +52,22 @@ export const postReservation = (reservation, history) => (dispatch) => {
     axios.post('/api/reservations/new', {fullName, reqModel, apptTime})
         .then(res => dispatch({type: POST_RESERVATION_SUCCESS, payload: res.data}))
         .then(history.push('/'))
-        .catch(err => dispatch({type: POST_RESERVATION_FAILED, payload: err}))
-
-    
+        .catch(err => dispatch({type: POST_RESERVATION_FAILED, payload: err}))   
 }
 
+// MAY NOT NEED -> PASS LOANERS DOWN FRM PARENT COMPONENT ========== FETCH AVAILABLE LOANERS FOR CHECK-OUT FORM ==========
+
+// ========== POST DATA FROM CHECK-OUT FORM TO DB SCHEMA 'TRIPS' ==========
+export const postOutTrip = (outTrip, history) => (dispatch) => {
+    
+    // dispatch({type: POST_RESERVATION_PENDING})
+    console.log(outTrip)
+    // axios.post('/api/reservations/new', {fullName, reqModel, apptTime})
+    //     .then(res => dispatch({type: POST_RESERVATION_SUCCESS, payload: res.data}))
+    //     .then(history.push('/'))
+    //     .catch(err => dispatch({type: POST_RESERVATION_FAILED, payload: err}))   
+}
+// ========== FETCH UNAVAILABLE LOANERS FOR CHECK-IN FORM ==========
+
+
+// ========== POST DATA FROM CHECK-IN FORM TO DB SCHEMA 'TRIPS' ==========

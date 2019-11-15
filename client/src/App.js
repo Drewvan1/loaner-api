@@ -7,8 +7,8 @@ import './App.css';
 import rootPage from './rootPage/rootpage'
 import LoanerPage from './LoanerPage/LoanerPage'
 import ReservationForm from './ReservationForm/ReservationForm'
+import checkoutForm from './CheckoutForm/CheckoutForm'
 
-// import LoanerHeader from './LoanerTable/LoanerHeader';
 import Navbar from './Navbar/Navbar'
 
 
@@ -41,6 +41,7 @@ class App extends Component {
             <Route exact path='/' component={rootPage} />
           }
           <Route exact path='/reservations/new' component={ReservationForm} />
+          <Route exact path='/loaners/checkout' component={checkoutForm}/>
       </div>
     )
   }

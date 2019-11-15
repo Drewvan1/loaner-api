@@ -15,7 +15,7 @@ import * as serviceWorker from './serviceWorker';
 
 import { searchVehicles, requestReservations, requestLoaners, requestUser } from './reducers'
 
-import 'tachyons'  // css library
+import 'tachyons/css/tachyons.min.css'  // css library
 
 const logger = createLogger()
 
