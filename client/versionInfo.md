@@ -87,11 +87,30 @@ CHECK-OUT FORM
     -> create form route
     -> link button to form
     -> create form (class-component)
-    -> can i console log the data?
+    -> can i console log the data?  YES!!!!!
     ++++++++++++++++
-    -> will need to figure out how LOANERS and TRIPS schemas interact in MONGO
+    -> will need to figure out how LOANERS and TRIPS schemas interact in MONGO -> looking like trips are a subdocument within each loaner document.  in practice this means it will work like an array of objects within the Loaner Schema
     -> create routes to accept form data in DB
     -> test db accepting data with postman2
     ++++++++++++++++
     -> link up form with DB
-    -> TEST!
+    **you are here**->-> TEST!
+    
+    ---- Concerns: 
+    -> available and here columns on loaner page
+    -> when trip post route is sent, the db does not update fast enough, therefore when react redirects to loaner page the info is stale
+    -> need form validation in checkout form and reservation form
+    -> need validation to make sure nobody has checked out vehicle before trying to start new checkout process
+    -> forms need styling, hell whole app needs styling
+
+CHECK-IN FORM
+    -> create nav button
+    -> create form route
+    -> link button to form
+    -> create form (class-component)
+    ++++++++++++++++
+    -> will need to figure out how LOANERS and TRIPS schemas interact in MONGO -> looking like trips are a subdocument within each loaner document.  in practice this means it will work like an array of objects within the Loaner Schema
+    -> create routes to accept form data in DB
+    -> test db accepting data with postman2
+    ++++++++++++++++
+    -> link up form with DB

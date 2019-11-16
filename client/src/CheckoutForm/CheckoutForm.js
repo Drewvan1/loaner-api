@@ -28,7 +28,7 @@ class CheckoutForm extends Component {
 
         const loanerOptionEls = availLoaners.map((loaner, i) => {
             return (
-                <option key={loaner._id} value={loaner.identifiers.stockNum}>{loaner.identifiers.stockNum}</option>
+                <option key={loaner._id} value={loaner._id}>{loaner.identifiers.stockNum}</option>
             )
         })
 
@@ -42,7 +42,7 @@ class CheckoutForm extends Component {
                 <div>
                     <label>Loaner to Check-Out</label>
                     <div>
-                        <Field name="stockNum" component="select">
+                        <Field name="_id" component="select">
                             <option />
                             {loanerOptionEls}
                         </Field>
