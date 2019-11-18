@@ -4,7 +4,8 @@ import {
     REQUEST_LOANERS_PENDING, REQUEST_LOANERS_SUCCESS, REQUEST_LOANERS_FAILED,
     REQUEST_USER_PENDING, REQUEST_USER_SUCCESS, REQUEST_USER_FAILED,
     POST_RESERVATION_PENDING, POST_RESERVATION_SUCCESS, POST_RESERVATION_FAILED,
-    POST_TRIP_PENDING, POST_TRIP_SUCCESS, POST_TRIP_FAILED
+    POST_OUTTRIP_PENDING, POST_OUTTRIP_SUCCESS, POST_OUTTRIP_FAILED,
+    POST_INTRIP_PENDING, POST_INTRIP_SUCCESS, POST_INTRIP_FAILED
 } from './constants'
 
 // library to help AJAX calls
@@ -56,22 +57,28 @@ export const postReservation = (reservation, history) => (dispatch) => {
         .catch(err => dispatch({type: POST_RESERVATION_FAILED, payload: err}))   
 }
 
-// MAY NOT NEED -> PASS LOANERS DOWN FRM PARENT COMPONENT ========== FETCH AVAILABLE LOANERS FOR CHECK-OUT FORM ==========
+// MAY NOT NEED -> PASS LOANERS DOWN FRM STATE ========== FETCH AVAILABLE LOANERS FOR CHECK-OUT FORM ==========
 
 // ========== POST DATA FROM CHECK-OUT FORM TO DB SCHEMA 'TRIPS' ==========
 export const postOutTrip = (outTrip, history) => (dispatch) => {
     console.log(outTrip)
     // const { agreementNum, customer, outDamage, outDate, outFuel, outMiles, ro, _id } = outTrip
-
-    
-    dispatch({type: POST_TRIP_PENDING})
+    dispatch({type: POST_OUTTRIP_PENDING})
     axios.post('/api/trip/out', outTrip)
-        .then(res => dispatch({type: POST_TRIP_SUCCESS, payload: res.data}))
+        .then(res => dispatch({type: POST_OUTTRIP_SUCCESS, payload: res.data}))
         // CURRENTLY HAVE AN ISSUE WHERE POST ROUTE SENT THEN GOING BACK TO HOME EG '/' HAPPENS TOO QUICKLY, DB HAS NOT UPDATED  TO SHOW THAT VEHICLE IS OUT
         .then(history.push('/'))
-        .catch(err => dispatch({type: POST_TRIP_FAILED, payload: err}))   
+        .catch(err => dispatch({type: POST_OUTTRIP_FAILED, payload: err}))   
 }
-// ========== FETCH UNAVAILABLE LOANERS FOR CHECK-IN FORM ==========
-
 
 // ========== POST DATA FROM CHECK-IN FORM TO DB SCHEMA 'TRIPS' ==========
+export const postInTrip = (inTrip, history) => (dispatch) => {
+    console.log(inTrip)
+    
+    dispatch({type: POST_OUTTRIP_PENDING})
+    axios.post('/api/trip/in', inTrip)
+        .then(res => dispatch({type: POST_OUTTRIP_SUCCESS, payload: res.data}))
+        // CURRENTLY HAVE AN ISSUE WHERE POST ROUTE SENT THEN GOING BACK TO HOME EG '/' HAPPENS TOO QUICKLY, DB HAS NOT UPDATED  TO SHOW THAT VEHICLE IS OUT
+        //.then(history.push('/'))
+        .catch(err => dispatch({type: POST_OUTTRIP_FAILED, payload: err}))   
+}

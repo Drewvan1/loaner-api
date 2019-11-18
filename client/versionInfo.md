@@ -97,7 +97,8 @@ CHECK-OUT FORM
     **you are here**->-> TEST!
     
     ---- Concerns: 
-    -> available and here columns on loaner page
+    -> available and here columns on loaner page -> eliminate "res status" column and make a status column that can be 'out', reserved, or '' (if avail)?
+        -> do i want to add functionality to reservation form in order to make individual loaners 'onReserve'?
     -> when trip post route is sent, the db does not update fast enough, therefore when react redirects to loaner page the info is stale
     -> need form validation in checkout form and reservation form
     -> need validation to make sure nobody has checked out vehicle before trying to start new checkout process

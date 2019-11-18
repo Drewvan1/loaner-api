@@ -11,8 +11,8 @@ const LoanerHeader = () => {
                 <TableCell align='center'>Stock Number</TableCell>
                 <TableCell align="center">Plate</TableCell>
                 <TableCell align="center">Year/Model/Trim</TableCell>
-                <TableCell align="center">Available</TableCell>
-                <TableCell align="center">Here</TableCell>
+                <TableCell align="center">Reservation Status</TableCell>
+                <TableCell align="center">Check-Out Status</TableCell>
             </TableRow>
         </TableHead>
     )

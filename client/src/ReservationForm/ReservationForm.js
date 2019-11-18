@@ -28,7 +28,7 @@ class ReservationForm extends Component {
 
         // may need error, touched out of this.props as well
         // can do field level validation per https://redux-form.com/8.2.2/docs/api/field.md/
-        const { handleSubmit, pristine, reset, submitting, onResFormSubmit, history } = this.props
+        const { handleSubmit, pristine, reset, submitting, onResFormSubmit, history, meta } = this.props
 
         return(
             // hundle submit sends an object with the values contained within it
@@ -38,6 +38,7 @@ class ReservationForm extends Component {
                         <label className={"db fw4 lh-copy f6"}>Client Name</label>
                         <div>
                             <Field name="fullName" component="input" type="text" placeholder="Who is the reservation for?" />
+                            {/* {meta.touched && ((meta.error && <span>{meta.error}</span>))} */}
                         </div>
                         <div>
                             {/* need to accomplish some error handling / validation here */}
@@ -46,7 +47,7 @@ class ReservationForm extends Component {
                     </div>
                 </div>   
                 <div>
-                    <label>Appointment Date</label>    
+                    <label>Appointment Date & Time</label>    
                     <div>
                         <Field name='apptTime' component='input' type='datetime-local'/>
                     </div>
