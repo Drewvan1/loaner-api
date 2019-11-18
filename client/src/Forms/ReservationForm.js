@@ -5,6 +5,8 @@ import { withRouter } from 'react-router-dom'
 
 import { postReservation } from '../actions'
 
+import { basicFormField } from './formFields'
+
 import './reservationForm.css'
 
 
@@ -28,30 +30,14 @@ class ReservationForm extends Component {
 
         // may need error, touched out of this.props as well
         // can do field level validation per https://redux-form.com/8.2.2/docs/api/field.md/
-        const { handleSubmit, pristine, reset, submitting, onResFormSubmit, history, meta } = this.props
+        const { handleSubmit, pristine, reset, submitting, onResFormSubmit, history } = this.props
 
         return(
             // hundle submit sends an object with the values contained within it
             <form onSubmit={handleSubmit(reservation => onResFormSubmit(reservation, history))}>
-                <div>
-                    <div className={"mt3"}>
-                        <label className={"db fw4 lh-copy f6"}>Client Name</label>
-                        <div>
-                            <Field name="fullName" component="input" type="text" placeholder="Who is the reservation for?" />
-                            {/* {meta.touched && ((meta.error && <span>{meta.error}</span>))} */}
-                        </div>
-                        <div>
-                            {/* need to accomplish some error handling / validation here */}
-                            {/* {touched && error} */}
-                        </div>
-                    </div>
-                </div>   
-                <div>
-                    <label>Appointment Date & Time</label>    
-                    <div>
-                        <Field name='apptTime' component='input' type='datetime-local'/>
-                    </div>
-                </div> 
+                {/* using unique syntax for basicFormField so can get access to meta object which allows me to present error validation */}
+                <Field name="fullName" component={basicFormField} type="text" placeholder="Who is the reservation for?" label='Customer Name'/>
+                <Field name='apptTime' component={basicFormField} type='datetime-local' label='Appointment Date & Time'/>
                 <div>
                     <label>Loaner Model Preferred</label>
                     <div>
@@ -80,10 +66,10 @@ function validate(values){
     const errors = {}
 
     if (!values.fullName){
-        errors.fullName = 'The Client Name is required'
+        errors.fullName = 'The Client Name is Required'
     }
     if (!values.apptTime){
-        errors.apptTime = 'The Appointment Date is required'
+        errors.apptTime = 'The Appointment Date and Time is Required'
     }
 
     return errors

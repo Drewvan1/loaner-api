@@ -5,6 +5,8 @@ import { withRouter } from 'react-router-dom'
 
 import { postInTrip } from '../actions'
 
+import { basicFormField } from './formFields'
+
 const mapStateToProps = (state) => {
     return {
         loaners: state.requestLoaners.loaners
@@ -32,7 +34,6 @@ class CheckinForm extends Component {
 
         return(
             <form onSubmit={handleSubmit(inTrip => onCheckinFormSubmit(inTrip, history))}>
-                <h1>checkin form is connected!</h1>
                 <div>
                     <label>Loaner to Check-In</label>
                     <div>
@@ -42,18 +43,8 @@ class CheckinForm extends Component {
                         </Field>
                     </div>
                 </div>
-                <div>
-                    <label>In Date</label>    
-                    <div>
-                        <Field name='inDate' component='input' type='datetime-local'/>
-                    </div>
-                </div> 
-                <div>
-                    <label>In Miles</label>
-                    <div>
-                        <Field name="inMiles" component="input" type="number" placeholder="Miles" />
-                    </div>
-                </div>
+                <Field name='inDate' component={basicFormField} type='datetime-local' label='In Date & Time'/>
+                <Field name="inMiles" component={basicFormField} type="number" placeholder="Miles" label='In Miles'/>
                 <div>
                     <label>In Fuel</label>
                     <div>
@@ -69,12 +60,7 @@ class CheckinForm extends Component {
                         <label htmlFor="fuelLevel">F</label>
                     </div>
                 </div>
-                <div>
-                    <label>Noted In Damage</label>
-                    <div>
-                        <Field name="inDamage" component="textarea" />
-                    </div>
-                </div>
+                <Field name="inDamage" component={basicFormField} type='text' label='Noted In Damage'/>
                 <div>
                     <button type="submit" disabled={pristine || submitting}>Submit</button>
                     <button type="button" disabled={pristine || submitting} onClick={reset}>Clear Values</button>
@@ -84,19 +70,25 @@ class CheckinForm extends Component {
     }
 }
 
-// function validate(values){
-//     const errors = {}
+function validate(values){
+    const errors = {}
 
-//     if (!values.fullName){
-//         errors.fullName = 'The Client Name is required'
-//     }
-//     if (!values.apptTime){
-//         errors.apptTime = 'The Appointment Date is required'
-//     }
+    if (!values._id){
+        errors._id = 'You must choose a loaner'
+    }
+    if (!values.inDate){
+        errors.inDate = 'A Date & Time is required'
+    }
+    if (!values.inMiles){
+        errors.inMiles = 'Miles are required'
+    }
+    if (!values.inDamage){
+        errors.inDamage = 'Damage field is required. If no damage noted enter "na"'
+    }
 
-//     return errors
-// }
+    return errors
+}
 
 CheckinForm = connect(mapStateToProps, MapDispatchToProps)(withRouter(CheckinForm))
 
-export default reduxForm({ form: 'checkinForm' })(CheckinForm)  // need to add validation
+export default reduxForm({ form: 'checkinForm', validate })(CheckinForm)
