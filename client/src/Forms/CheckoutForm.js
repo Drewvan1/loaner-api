@@ -5,6 +5,8 @@ import { withRouter } from 'react-router-dom'
 
 import { postOutTrip } from '../actions'
 
+import { basicFormField } from './formFields'
+
 const mapStateToProps = (state) => {
     return {
         loaners: state.requestLoaners.loaners
@@ -38,7 +40,6 @@ class CheckoutForm extends Component {
             // tripId: String, this will be `${ro}_${agreementNum}` // AgreementNum: String // ro: String // customer: String,
             // outVars: {outDate: Date, outMiles: Number, outFuel: Number, outDamage: String}
             <form onSubmit={handleSubmit(outTrip => onCheckoutFormSubmit(outTrip, history))}>
-                <h1>checkout form is connected!</h1>
                 <div>
                     <label>Loaner to Check-Out</label>
                     <div>
@@ -48,37 +49,11 @@ class CheckoutForm extends Component {
                         </Field>
                     </div>
                 </div>
-                <div>
-                    <label>Rental Agreement Number</label>
-                    <div>
-                        <Field name="agreementNum" component="input" type="text" placeholder="Agreement #" />
-                    </div>
-                </div>
-                <div>
-                    <label>Repair Order Number</label>
-                    <div>
-                        <Field name="ro" component="input" type="text" placeholder="RO #" />
-                    </div>
-                </div>
-                <div>
-                    <label>Customer Name</label>
-                    <div>
-                        <Field name="customer" component="input" type="text" placeholder="Name" />
-                    </div>
-                </div>
-
-                <div>
-                    <label>Out Date</label>    
-                    <div>
-                        <Field name='outDate' component='input' type='datetime-local'/>
-                    </div>
-                </div> 
-                <div>
-                    <label>Out Miles</label>
-                    <div>
-                        <Field name="outMiles" component="input" type="number" placeholder="Miles" />
-                    </div>
-                </div>
+                <Field name="agreementNum" component={basicFormField} type="text" placeholder="Agreement #" label='Rental Agreement Number'/>
+                <Field name="ro" component={basicFormField} type="text" placeholder="RO #" label='Repair Order'/>
+                <Field name="customer" component={basicFormField} type="text" placeholder="Name" label='Customer Name'/>
+                <Field name='outDate' component={basicFormField} type='datetime-local' label='Out Date & Time'/>
+                <Field name="outMiles" component={basicFormField} type="number" placeholder="Miles" label='Out Miles'/>
                 <div>
                     <label>Out Fuel</label>
                     <div>
@@ -94,12 +69,8 @@ class CheckoutForm extends Component {
                         <label htmlFor="fuelLevel">F</label>
                     </div>
                 </div>
-                <div>
-                    <label>Noted Out Damage</label>
-                    <div>
-                        <Field name="outDamage" component="textarea" />
-                    </div>
-                </div>
+                {/* may want to make a class out of this in order to enlarge the text area */}
+                <Field name="outDamage" component={basicFormField} type='text' label='Noted Out Damage'/>
                 <div>
                     <button type="submit" disabled={pristine || submitting}>Submit</button>
                     <button type="button" disabled={pristine || submitting} onClick={reset}>Clear Values</button>
@@ -109,19 +80,34 @@ class CheckoutForm extends Component {
     }
 }
 
-// function validate(values){
-//     const errors = {}
+function validate(values){
+    const errors = {}
 
-//     if (!values.fullName){
-//         errors.fullName = 'The Client Name is required'
-//     }
-//     if (!values.apptTime){
-//         errors.apptTime = 'The Appointment Date is required'
-//     }
+    if (!values.agreementNum){
+        errors.agreementNum = 'You must enter a Rental Agreement Number'
+    }
+    if (!values._id){
+        errors._id = 'A loaner is required'
+    }
+    if (!values.ro){
+        errors.ro = 'The RO number is required'
+    }
+    if (!values.customer){
+        errors.customer = 'The customer name is required'
+    }
+    if (!values.outDate){
+        errors.outDate = 'The customer name is required'
+    }
+    if (!values.outMiles){
+        errors.outMiles = 'The customer name is required'
+    }
+    if (!values.outFuel){
+        errors.outFuel = 'The customer name is required'
+    }
 
-//     return errors
-// }
+    return errors
+}
 
 CheckoutForm = connect(mapStateToProps, MapDispatchToProps)(withRouter(CheckoutForm))
 
-export default reduxForm({ form: 'checkoutForm' })(CheckoutForm)  // need to add validation
+export default reduxForm({ form: 'checkoutForm', validate })(CheckoutForm)  // need to add validation

@@ -75,10 +75,10 @@ export const postOutTrip = (outTrip, history) => (dispatch) => {
 export const postInTrip = (inTrip, history) => (dispatch) => {
     console.log(inTrip)
     
-    dispatch({type: POST_OUTTRIP_PENDING})
+    dispatch({type: POST_INTRIP_PENDING})
     axios.post('/api/trip/in', inTrip)
-        .then(res => dispatch({type: POST_OUTTRIP_SUCCESS, payload: res.data}))
+        .then(res => dispatch({type: POST_INTRIP_SUCCESS, payload: res.data}))
         // CURRENTLY HAVE AN ISSUE WHERE POST ROUTE SENT THEN GOING BACK TO HOME EG '/' HAPPENS TOO QUICKLY, DB HAS NOT UPDATED  TO SHOW THAT VEHICLE IS OUT
         //.then(history.push('/'))
-        .catch(err => dispatch({type: POST_OUTTRIP_FAILED, payload: err}))   
+        .catch(err => dispatch({type: POST_INTRIP_FAILED, payload: err}))   
 }

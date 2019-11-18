@@ -6,9 +6,9 @@ import './App.css';
 
 import rootPage from './rootPage/rootpage'
 import LoanerPage from './LoanerPage/LoanerPage'
-import ReservationForm from './ReservationForm/ReservationForm'
-import checkoutForm from './CheckoutForm/CheckoutForm'
-import checkinForm from './CheckinForm/CheckinForm'
+import ReservationForm from './Forms/ReservationForm'
+import checkoutForm from './Forms/CheckoutForm'
+import checkinForm from './Forms/CheckinForm'
 
 import Navbar from './Navbar/Navbar'
 
