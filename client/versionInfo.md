@@ -98,20 +98,14 @@ CHECK-OUT FORM
     
     ---- Concerns: 
     -> available and here columns on loaner page -> eliminate "res status" column and make a status column that can be 'out', reserved, or '' (if avail)?
-        -> do i want to add functionality to reservation form in order to make individual loaners 'onReserve'?
+        
     -> when trip post route is sent, the db does not update fast enough, therefore when react redirects to loaner page the info is stale
-    -> need form validation in checkout form and reservation form
+ 
     -> need validation to make sure nobody has checked out vehicle before trying to start new checkout process
     -> forms need styling, hell whole app needs styling
+    https://github.com/mui-org/material-ui/tree/master/docs/src/pages/premium-themes/paperbase
+    
+    -> Reservation form, create a component for the reqModel field?  Add loaner options to choose?
+        -> do i want to add functionality to reservation form in order to make individual loaners 'onReserve'?
 
-CHECK-IN FORM
-    -> create nav button
-    -> create form route
-    -> link button to form
-    -> create form (class-component)
-    ++++++++++++++++
-    -> will need to figure out how LOANERS and TRIPS schemas interact in MONGO -> looking like trips are a subdocument within each loaner document.  in practice this means it will work like an array of objects within the Loaner Schema
-    -> create routes to accept form data in DB
-    -> test db accepting data with postman2
-    ++++++++++++++++
-    -> link up form with DB
+

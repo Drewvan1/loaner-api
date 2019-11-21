@@ -47,6 +47,7 @@ export const fetchUser = () => (dispatch) => {
 
 // ========== POST RESERVATION TO DB SCHEMA 'RESERVATIONS' ==========
 export const postReservation = (reservation, history) => (dispatch) => {
+    // refactored -> reqModel is now the entire loaner object in JSON format
     const { fullName, reqModel, apptTime } = reservation
     
     dispatch({type: POST_RESERVATION_PENDING})
@@ -79,6 +80,6 @@ export const postInTrip = (inTrip, history) => (dispatch) => {
     axios.post('/api/trip/in', inTrip)
         .then(res => dispatch({type: POST_INTRIP_SUCCESS, payload: res.data}))
         // CURRENTLY HAVE AN ISSUE WHERE POST ROUTE SENT THEN GOING BACK TO HOME EG '/' HAPPENS TOO QUICKLY, DB HAS NOT UPDATED  TO SHOW THAT VEHICLE IS OUT
-        //.then(history.push('/'))
+        .then(history.push('/'))
         .catch(err => dispatch({type: POST_INTRIP_FAILED, payload: err}))   
 }

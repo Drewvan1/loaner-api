@@ -5,16 +5,15 @@ import { withRouter } from 'react-router-dom'
 
 import { postReservation } from '../actions'
 
-import { basicFormField } from './formFields'
+import { basicFormField, customSelectField } from './formFields'
+
 
 import './reservationForm.css'
 
 
 const mapStateToProps = (state) => {
     return {
-        // user: state.requestUser.user,
-        // userIsPending: state.requestUser.userIsPending,
-        // userError: state.requestUser.userError
+        loaners: state.requestLoaners.loaners
     }
 }
 
@@ -27,11 +26,11 @@ const MapDispatchToProps = (dispatch) => {
 class ReservationForm extends Component {
 
     render(){
-
-        // may need error, touched out of this.props as well
         // can do field level validation per https://redux-form.com/8.2.2/docs/api/field.md/
-        const { handleSubmit, pristine, reset, submitting, onResFormSubmit, history } = this.props
+        const { handleSubmit, pristine, reset, submitting, onResFormSubmit, history, loaners } = this.props
 
+        const availLoaners = loaners.filter(loaner => loaner.isOut === false && loaner.isReserved === false)
+        
         return(
             // hundle submit sends an object with the values contained within it
             <form onSubmit={handleSubmit(reservation => onResFormSubmit(reservation, history))}>
@@ -39,14 +38,8 @@ class ReservationForm extends Component {
                 <Field name="fullName" component={basicFormField} type="text" placeholder="Who is the reservation for?" label='Customer Name'/>
                 <Field name='apptTime' component={basicFormField} type='datetime-local' label='Appointment Date & Time'/>
                 <div>
-                    <label>Loaner Model Preferred</label>
                     <div>
-                        <Field name="reqModel" component="select">
-                            <option />
-                            <option value="Odyssey">Odyssey</option>
-                            <option value="Pilot">Pilot</option>
-                            <option value="CR-V">CR-V</option>
-                        </Field>
+                        <Field name="reqModel" component={customSelectField} label='Preferred Loaner' loaners={availLoaners} />
                     </div>
                 </div>
                 <div>
