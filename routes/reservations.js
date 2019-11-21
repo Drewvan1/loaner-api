@@ -4,6 +4,7 @@ const router = express.Router();
 const mongoose = require('mongoose')
 
 const Reservation = mongoose.model('reservations')
+const Loaner = mongoose.model('loaners')
 
 router.get('/api/reservations', (req, res) => {
     Reservation.find({ isActive: true }, (err, activeReservations) => {
@@ -16,33 +17,39 @@ router.get('/api/reservations', (req, res) => {
 })
 
 // should this be reservations/new -> reference RESTFUL routes
-router.post('/api/reservations/new', (req, res) => {
-    console.log(req.body)
-    console.log(req.body.fullName, req.body.reqModel, req.body.apptTime)
+router.post('/api/reservations/', (req, res) => {
     const { fullName, reqModel } = req.body
-    const apptTime = new Date(req.body.apptTime)
-    // will need to alter the Date object when you figure out how the JSON will come over from the front-end
+    
+    // wonky - refactored front end to include entire loaner as reqModel variable
+    const loaner = JSON.parse(reqModel)
 
-    const createdBy = req.user.name
-    //const createdBy = 'Drew V'
-
-    const newReservation = { fullName, apptTime, reqModel, createdBy }
-
-    Reservation.create(newReservation, (err) => {
-        if (err) {
-            console.log(err)
+    Loaner.findById(loaner._id, (err, foundLoaner) => {
+        if (foundLoaner.isOut || foundLoaner.isReserved) {
+            // this kills the server with a cannot set headers error
+            res.sendStatus(400).send('This loaner cannot be reserved.')
         } else {
-            // if successfully added to db push poll the db and push the json back to front-end
-            console.log('reservation added')
+            foundLoaner.isReserved = true
+            foundLoaner.save()
+
+            const apptTime = new Date(req.body.apptTime)
+            const createdBy = req.user.name
+            const newReservation = { fullName, apptTime, createdBy, reqModel: loaner.identifiers.model }
+        
+            Reservation.create(newReservation, (err) => {
+                if (err) {
+                    console.log(err)
+                } else {
+                    // if successfully added to db push poll the db and push the json back to front-end
+                    console.log('reservation added')
+                }
+            })
+            // will need to get rid of this when done testing
+            res.send(`reservations post route connected accepting variables ${fullName}, ${apptTime}, and created by: ${createdBy}`)
         }
-    })
-
-    // will need to get rid of this when done testing
-    res.send(`reservations post route connected accepting variables ${fullName}, ${apptTime}, and created by: ${createdBy}`)
+    })    
 })
 
-router.put('/reservations/:id', (req, res) => {
-    res.send('reservations put route connected')
-})
+// need route to edit reservation.  can "delete" reservation by flipping isActive attribute to falst
+
 
 module.exports = router

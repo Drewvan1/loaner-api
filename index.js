@@ -19,6 +19,7 @@ const keys = require('./config/keys')
 const loanerRoutes = require('./routes/loaners')
 const reservationRoutes = require('./routes/reservations')
 const authRoutes = require('./routes/auth')
+const tripRoutes = require('./routes/trips')
 
 // =========== SET UP MIDDLEWARE ===================
 app.use(bodyParser.urlencoded({extended: true}));
@@ -49,6 +50,7 @@ app.use(passport.session())
 app.use(loanerRoutes)
 app.use(reservationRoutes)
 app.use(authRoutes)
+app.use(tripRoutes)
 
 app.get('/', (req, res) => {
 	res.send('we goooood.');
