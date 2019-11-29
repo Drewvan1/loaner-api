@@ -38,13 +38,13 @@ router.post('/api/reservations/', (req, res) => {
             Reservation.create(newReservation, (err) => {
                 if (err) {
                     console.log(err)
+                    res.sendStatus(400).send('Reservation was not saved.')
                 } else {
                     // if successfully added to db push poll the db and push the json back to front-end
                     console.log('reservation added')
+                    res.redirect('/')
                 }
             })
-            // will need to get rid of this when done testing
-            res.send(`reservations post route connected accepting variables ${fullName}, ${apptTime}, and created by: ${createdBy}`)
         }
     })    
 })

@@ -2,9 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 
 import LoanerTable from '../LoanerTable/LoanerTable'
-import ReservationTable from '../ReservationTable/ReservationTable'
+// import ReservationTable from '../ReservationTable/ReservationTable'
+//import NewReservationTable from '../ReservationTable/NewReservationTable'
+import EnhancedReservationTable from '../ReservationTable/EnhancedReservationTable'
 
 import { fetchReservations, fetchLoaners } from '../actions'
+
+
 
 const mapStateToProps = (state) => {
   return {
@@ -57,7 +61,8 @@ class LoanerPage extends Component {
     return (
       <div>
           <LoanerTable loaners={filteredLoaners} />
-          <ReservationTable reservations={sortedReservations}/>
+          {/* <ReservationTable reservations={sortedReservations}/> */}
+          <EnhancedReservationTable reservations={sortedReservations}/>
       </div>
     )
   }

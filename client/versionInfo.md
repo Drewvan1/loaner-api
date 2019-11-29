@@ -97,15 +97,16 @@ CHECK-OUT FORM
     **you are here**->-> TEST!
     
     ---- Concerns: 
-    -> available and here columns on loaner page -> eliminate "res status" column and make a status column that can be 'out', reserved, or '' (if avail)?
         
-    -> when trip post route is sent, the db does not update fast enough, therefore when react redirects to loaner page the info is stale
- 
+    -> How to delete reservations?
+        - using code from material-ui
+        - get rid of pagination?
+        - delete button does not work... i can get the onClick function to fire, but how do let it know what row's checkbox is selected??????
+
+
     -> need validation to make sure nobody has checked out vehicle before trying to start new checkout process
     -> forms need styling, hell whole app needs styling
     https://github.com/mui-org/material-ui/tree/master/docs/src/pages/premium-themes/paperbase
-    
-    -> Reservation form, create a component for the reqModel field?  Add loaner options to choose?
-        -> do i want to add functionality to reservation form in order to make individual loaners 'onReserve'?
 
+    -> 
 

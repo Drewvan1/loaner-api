@@ -10,7 +10,7 @@ const LoanerRow = ({ stockNum, plate, ymm, isReserved, isOut }) => {
             <TableCell align='center'>{stockNum}</TableCell>
             <TableCell align='center'>{plate}</TableCell>
             <TableCell align='center'>{ymm}</TableCell>
-            <TableCell align='center'>{isReserved}</TableCell>
+            {/* <TableCell align='center'>{isReserved}</TableCell> */}
             <TableCell align='center'>{isOut}</TableCell>
         </TableRow>
         // <TableRow>

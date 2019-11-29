@@ -54,7 +54,7 @@ export const postReservation = (reservation, history) => (dispatch) => {
     console.log({fullName, reqModel, apptTime})
     axios.post('/api/reservations/', {fullName, reqModel, apptTime})
         .then(res => dispatch({type: POST_RESERVATION_SUCCESS, payload: res.data}))
-        .then(history.push('/'))
+        .then(setTimeout(function(){ history.push('/') }, 1000))
         .catch(err => dispatch({type: POST_RESERVATION_FAILED, payload: err}))   
 }
 
@@ -68,7 +68,7 @@ export const postOutTrip = (outTrip, history) => (dispatch) => {
     axios.post('/api/trip/out', outTrip)
         .then(res => dispatch({type: POST_OUTTRIP_SUCCESS, payload: res.data}))
         // CURRENTLY HAVE AN ISSUE WHERE POST ROUTE SENT THEN GOING BACK TO HOME EG '/' HAPPENS TOO QUICKLY, DB HAS NOT UPDATED  TO SHOW THAT VEHICLE IS OUT
-        .then(history.push('/'))
+        .then(setTimeout(function(){ history.push('/') }, 1000))
         .catch(err => dispatch({type: POST_OUTTRIP_FAILED, payload: err}))   
 }
 
@@ -80,6 +80,6 @@ export const postInTrip = (inTrip, history) => (dispatch) => {
     axios.post('/api/trip/in', inTrip)
         .then(res => dispatch({type: POST_INTRIP_SUCCESS, payload: res.data}))
         // CURRENTLY HAVE AN ISSUE WHERE POST ROUTE SENT THEN GOING BACK TO HOME EG '/' HAPPENS TOO QUICKLY, DB HAS NOT UPDATED  TO SHOW THAT VEHICLE IS OUT
-        .then(history.push('/'))
+        .then(setTimeout(function(){ history.push('/') }, 1000))
         .catch(err => dispatch({type: POST_INTRIP_FAILED, payload: err}))   
 }
