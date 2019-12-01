@@ -1,6 +1,7 @@
 import { 
     CHANGE_SEARCH_FIELD,
     REQUEST_RESERVATIONS_PENDING, REQUEST_RESERVATIONS_SUCCESS, REQUEST_RESERVATIONS_FAILED,
+    DELETE_RESERVATIONS_PENDING, DELETE_RESERVATIONS_SUCCESS, DELETE_RESERVATIONS_FAILED,
     REQUEST_LOANERS_PENDING, REQUEST_LOANERS_SUCCESS, REQUEST_LOANERS_FAILED,
     REQUEST_USER_PENDING, REQUEST_USER_SUCCESS, REQUEST_USER_FAILED,
     POST_RESERVATION_PENDING, POST_RESERVATION_SUCCESS, POST_RESERVATION_FAILED,
@@ -82,4 +83,20 @@ export const postInTrip = (inTrip, history) => (dispatch) => {
         // CURRENTLY HAVE AN ISSUE WHERE POST ROUTE SENT THEN GOING BACK TO HOME EG '/' HAPPENS TOO QUICKLY, DB HAS NOT UPDATED  TO SHOW THAT VEHICLE IS OUT
         .then(setTimeout(function(){ history.push('/') }, 1000))
         .catch(err => dispatch({type: POST_INTRIP_FAILED, payload: err}))   
+}
+
+// ========== DELETE RESERVATION ROUTE EG DELETE ROUTE TO CHANGE isActive ATTR TO false ==========
+export const deleteReservation = (reservationId, history) => (dispatch) => {
+    const result = window.confirm('Are you sure you want to delete these reservations?')
+    
+    if (result === false) {
+        return
+    }
+
+    dispatch({type: DELETE_RESERVATIONS_PENDING})
+    console.log(reservationId)
+    axios.put('/api/reservations', { reservationId })
+        .then(res => dispatch({type: DELETE_RESERVATIONS_SUCCESS, payload: res.data}))
+        .then(setTimeout(function(){ history.push('/') }, 1000))
+        .catch(err => dispatch({type: DELETE_RESERVATIONS_FAILED, payload: err})) 
 }

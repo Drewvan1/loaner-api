@@ -1,5 +1,6 @@
 import React from 'react';
-// import { connect, useSelector } from 'react-redux'
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 // import PropTypes from 'prop-types';
 
 import Paper from '@material-ui/core/Paper';
@@ -9,29 +10,37 @@ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import Checkbox from '@material-ui/core/Checkbox';
-
+// import Checkbox from '@material-ui/core/Checkbox';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 import { stableSort, getSorting, useStyles } from './reservationTableHelpers'
 
-// const mapStateToProps = (state) => {
-//     return {
+import { deleteReservation } from '../actions'
+
+const mapStateToProps = (state) => {
+    return {
         
-//     }
-//   }
+    }
+  }
   
-//   const MapDispatchToProps = (dispatch) => {
-//     return {
+  const MapDispatchToProps = (dispatch) => {
+    return {
+        handleDelete: (reservationId, history) => dispatch(deleteReservation(reservationId, history))
+    }
+  }
 
-//     }
-//   }
+const EnhancedReservationTable = (props) => {
 
-const EnhancedReservationTable = ({ reservations }) => {
+    console.log(props)
+
+    const { reservations, handleDelete, history } = props
 
     const classes = useStyles();
 
     const [order, setOrder] = React.useState('asc');
     const [orderBy, setOrderBy] = React.useState('apptTIme');
+    // eslint-disable-next-line
     const [selected, setSelected] = React.useState([]);  //numSelected={selected.length}
 
     const handleRequestSort = (event, property) => {
@@ -40,56 +49,40 @@ const EnhancedReservationTable = ({ reservations }) => {
         setOrderBy(property);
     };
      
-    const handleClick = (event, name) => {
-        const selectedIndex = selected.indexOf(name);
-        let newSelected = [];
-    
-        if (selectedIndex === -1) {
-          newSelected = newSelected.concat(selected, name);
-        } else if (selectedIndex === 0) {
-          newSelected = newSelected.concat(selected.slice(1));
-        } else if (selectedIndex === selected.length - 1) {
-          newSelected = newSelected.concat(selected.slice(0, -1));
-        } else if (selectedIndex > 0) {
-          newSelected = newSelected.concat(
-            selected.slice(0, selectedIndex),
-            selected.slice(selectedIndex + 1),
-          );
-        }
-
-        console.log(newSelected)  // this has the Id's of the reservations in it.  
-        setSelected(newSelected);
+    const handleClick = (event, reservationId) => {
+        handleDelete(reservationId, history)
     };
 
-    const isSelected = name => selected.indexOf(name) !== -1;
+    // const isSelected = name => selected.indexOf(name) !== -1;
 
     const reservationRowArray = stableSort(reservations, getSorting(order, orderBy)).map((reservation, index) => {
-        const isItemSelected = isSelected(reservation._id);
+        // const isItemSelected = isSelected(reservation._id);
         const labelId = `enhanced-table-checkbox-${index}`;
 
         return (
-            <TableRow hover onClick={event => handleClick(event, reservation._id)} role="checkbox" aria-checked={isItemSelected} tabIndex={-1} key={reservation._id} selected={isItemSelected}>
-              <TableCell padding="checkbox">
-                <Checkbox checked={isItemSelected} inputProps={{ 'aria-labelledby': labelId }} />
-              </TableCell>
-              <TableCell component="th" id={labelId} scope="row" padding="none">
-                {reservation.fullName}
-              </TableCell>
-              <TableCell align="right">{`${new Date(reservation.apptTime).toLocaleString(undefined, {day: 'numeric', month: 'numeric', hour: '2-digit', minute: '2-digit'})}`}</TableCell>
-              <TableCell align="left">{reservation.reqModel}</TableCell>
-              <TableCell align="left">{reservation.createdBy}</TableCell>
-              <TableCell align="right">{`${new Date(reservation.created).toLocaleString(undefined, {day: 'numeric', month: 'numeric', hour: '2-digit', minute: '2-digit'})}`}</TableCell>
+            <TableRow hover key={reservation._id} >
+                <TableCell padding="checkbox">
+                    <IconButton aria-label="delete" onClick={event => handleClick(event, reservation._id)}>
+                        <DeleteIcon />
+                    </IconButton>
+                </TableCell>
+                <TableCell component="th" id={labelId} scope="row" padding="none">
+                    {reservation.fullName}
+                </TableCell>
+                <TableCell align="right">{`${new Date(reservation.apptTime).toLocaleString(undefined, {day: 'numeric', month: 'numeric', hour: '2-digit', minute: '2-digit'})}`}</TableCell>
+                <TableCell align="left">{reservation.reqModel}</TableCell>
+                <TableCell align="left">{reservation.createdBy}</TableCell>
+                <TableCell align="right">{`${new Date(reservation.created).toLocaleString(undefined, {day: 'numeric', month: 'numeric', hour: '2-digit', minute: '2-digit'})}`}</TableCell>
             </TableRow>
         );
     })
 
     return(
-        <div ClassName = {classes.root}> 
-            <Paper>
-                    {/* // Will need to pass down function for onDelete and the reservation Id's from the reservations selected to EnhancedTableToolbar */}
-                <EnhancedTableToolbar numSelected={selected.length}/>
-                <div ClassName = {classes.tableWrapper}>
-                    <Table>
+        <div className = {classes.root}> 
+            <Paper className={classes.paper}>
+                <EnhancedTableToolbar numSelected={selected.length} selected={selected} />
+                <div className = {classes.tableWrapper}>
+                    <Table className={classes.table}>
                         <EnhancedTableHead classes={classes} numSelected={selected.length} order={order} orderBy={orderBy} onRequestSort={handleRequestSort}/>
                         <TableBody>
                             {reservationRowArray}
@@ -101,6 +94,6 @@ const EnhancedReservationTable = ({ reservations }) => {
         )
 }
 
-//export default connect(mapStateToProps, MapDispatchToProps)(EnhancedReservationTable)
+export default connect(mapStateToProps, MapDispatchToProps)(withRouter(EnhancedReservationTable))
 
-export default EnhancedReservationTable
+// export default EnhancedReservationTable

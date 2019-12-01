@@ -61,7 +61,6 @@ class LoanerPage extends Component {
     return (
       <div>
           <LoanerTable loaners={filteredLoaners} />
-          {/* <ReservationTable reservations={sortedReservations}/> */}
           <EnhancedReservationTable reservations={sortedReservations}/>
       </div>
     )

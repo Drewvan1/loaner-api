@@ -14,14 +14,6 @@ import { useToolbarStyles } from './reservationTableHelpers'
   const EnhancedTableToolbar = props => {
     const classes = useToolbarStyles();
     const { numSelected } = props;
-    
-  
-    const onDelete = (e) => {
-      console.log('clicked!')
-      const result = window.confirm('Are you sure you want to delete these reservations?')
-      console.log(result)  // result will be either true (clicked: ok) or false (clicked: cancel)
-      // console.log(newSelected)  // this would be the variable that would hold the reservation Id's.  need to make this a class.
-    }
   
     return (
       <Toolbar
@@ -41,8 +33,7 @@ import { useToolbarStyles } from './reservationTableHelpers'
   
         {numSelected > 0 ? (
           <Tooltip title="Delete">
-            {/* so i can get the onClick function to fire, but how do i know what row is clicked?????????????? */}
-            <IconButton aria-label="delete" onClick={e => onDelete(e)}>
+            <IconButton aria-label="delete">
               {/* <DeleteIcon /> */}
               <span>D</span>
             </IconButton>

@@ -25,7 +25,6 @@ router.post('/api/reservations/', (req, res) => {
 
     Loaner.findById(loaner._id, (err, foundLoaner) => {
         if (foundLoaner.isOut || foundLoaner.isReserved) {
-            // this kills the server with a cannot set headers error
             res.sendStatus(400).send('This loaner cannot be reserved.')
         } else {
             foundLoaner.isReserved = true
@@ -49,7 +48,20 @@ router.post('/api/reservations/', (req, res) => {
     })    
 })
 
-// need route to edit reservation.  can "delete" reservation by flipping isActive attribute to falst
+router.put('/api/reservations', (req, res) => {
+    const { reservationId } = req.body
+    console.log(reservationId)
+
+    Reservation.findById(reservationId, (err, foundReservation) => {
+        if (err) {
+            res.sendStatus(400).send('Reservation was not deleted.')
+        }
+        
+        foundReservation.isActive = false
+        foundReservation.save()
+        res.send('reservation deleted!')
+    })
+})
 
 
 module.exports = router

@@ -102,11 +102,15 @@ CHECK-OUT FORM
         - using code from material-ui
         - get rid of pagination?
         - delete button does not work... i can get the onClick function to fire, but how do let it know what row's checkbox is selected??????
+        -> DONE
+
+        -> new concern.  so should we delete reservation when vehicle checked out. or ask do you want to delete associated reservation???
+            right now we can delete the reservation, but the "RESERVED" status next to the loaner remains.
 
 
     -> need validation to make sure nobody has checked out vehicle before trying to start new checkout process
     -> forms need styling, hell whole app needs styling
     https://github.com/mui-org/material-ui/tree/master/docs/src/pages/premium-themes/paperbase
 
-    -> 
+    -> so 
 

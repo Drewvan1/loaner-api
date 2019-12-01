@@ -9,7 +9,7 @@ import LoanerPage from './LoanerPage/LoanerPage'
 import ReservationForm from './Forms/ReservationForm'
 import checkoutForm from './Forms/CheckoutForm'
 import checkinForm from './Forms/CheckinForm'
-import EnhancedReservationTable from './ReservationTable/EnhancedReservationTable'
+// import EnhancedReservationTable from './ReservationTable/EnhancedReservationTable'
 
 import Navbar from './Navbar/Navbar'
 
@@ -45,7 +45,7 @@ class App extends Component {
           <Route exact path='/reservations/new' component={ReservationForm} />
           <Route exact path='/loaners/checkout' component={checkoutForm}/>
           <Route exact path='/loaners/checkin' component={checkinForm}/>
-          <Route exact path='/test' component={EnhancedReservationTable}/>
+          {/* <Route exact path='/test' component={EnhancedReservationTable}/> */}
       </div>
     )
   }

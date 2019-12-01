@@ -52,13 +52,6 @@ app.use(reservationRoutes)
 app.use(authRoutes)
 app.use(tripRoutes)
 
-app.get('/', (req, res) => {
-	res.send('we goooood.');
-});
-
-
-
-
 const PORT = process.env.PORT;
 app.listen(PORT || 5000, () => {
 	console.log('server up!');
