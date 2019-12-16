@@ -19,6 +19,7 @@ import 'tachyons/css/tachyons.min.css'  // css library
 
 const logger = createLogger()
 
+// could combine reducers in reducers file and export to variable here...
 const rootReducer = combineReducers({ searchVehicles, requestReservations, requestLoaners, requestUser, form})
 const store = createStore(rootReducer, applyMiddleware(thunkMiddleware, logger))
 

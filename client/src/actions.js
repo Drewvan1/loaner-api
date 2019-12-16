@@ -22,6 +22,9 @@ export const setSearchField = (text) => ({
 // need to use a higher order function here (eg function returning a function) because a typical action return is an object but
 //  redux-thunk is looking for a function.  when it sees that it knows the code may be asynchronous and therefore will listen for the promise response
 
+//****************************************************************
+//              RESERVATION ACTIONS
+//****************************************************************
 // ========== FETCH RESERVATIONS FOR RESERVATION TABLE  ==========
 export const fetchReservations = () => (dispatch) => {
     dispatch({ type: REQUEST_RESERVATIONS_PENDING })
@@ -29,6 +32,37 @@ export const fetchReservations = () => (dispatch) => {
         .then(res => dispatch({ type: REQUEST_RESERVATIONS_SUCCESS, payload: res.data }))
         .catch(err => dispatch({ type: REQUEST_RESERVATIONS_FAILED, payload: err }))
 }
+
+// ========== POST RESERVATION TO DB SCHEMA 'RESERVATIONS' ==========
+export const postReservation = (reservation, history) => (dispatch) => {
+    // refactored -> reqModel is now the entire loaner object in JSON format
+    // const { fullName, reqModel, apptTime } = reservation
+    
+    dispatch({type: POST_RESERVATION_PENDING})
+    console.log(reservation)
+    axios.post('/api/reservations/', reservation)
+        .then(res => dispatch({type: POST_RESERVATION_SUCCESS, payload: res.data}))
+        .then(setTimeout(function(){ history.push('/') }, 1000))
+        .catch(err => dispatch({type: POST_RESERVATION_FAILED, payload: err}))   
+}
+
+// ========== DELETE RESERVATION ROUTE EG DELETE ROUTE TO CHANGE isActive PROPERTY TO false ==========
+export const deleteReservation = (reservation, history) => (dispatch) => {
+    // const result = window.confirm('Are you sure you want to delete these reservations?')
+    
+    // if (result === false) {
+    //     return
+    // }
+    dispatch({type: DELETE_RESERVATIONS_PENDING})
+    console.log(reservation, history)
+    axios.put('/api/reservations', { reservationId: reservation._id, stockNum: reservation.stockNum, loanerId: reservation.loanerId })
+        .then(res => dispatch({type: DELETE_RESERVATIONS_SUCCESS, payload: res.data}))
+        .catch(err => dispatch({type: DELETE_RESERVATIONS_FAILED, payload: err})) 
+}
+
+//****************************************************************
+//              LOANER ACTIONS
+//****************************************************************
 
 // ========== FETCH LOANERS FOR LOANER TABLE  ==========
 export const fetchLoaners = () => (dispatch) => {
@@ -38,6 +72,10 @@ export const fetchLoaners = () => (dispatch) => {
         .catch(err => dispatch({type: REQUEST_LOANERS_FAILED, payload: err}))
 }
 
+//****************************************************************
+//              USER ACTIONS
+//****************************************************************
+
 // ========== FETCH USER FOR NAVBAR JSX RENDERING  ==========
 export const fetchUser = () => (dispatch) => {
     dispatch({type: REQUEST_USER_PENDING})
@@ -46,20 +84,12 @@ export const fetchUser = () => (dispatch) => {
         .catch(err => dispatch({type: REQUEST_USER_FAILED, payload: err}))
 }
 
-// ========== POST RESERVATION TO DB SCHEMA 'RESERVATIONS' ==========
-export const postReservation = (reservation, history) => (dispatch) => {
-    // refactored -> reqModel is now the entire loaner object in JSON format
-    const { fullName, reqModel, apptTime } = reservation
-    
-    dispatch({type: POST_RESERVATION_PENDING})
-    console.log({fullName, reqModel, apptTime})
-    axios.post('/api/reservations/', {fullName, reqModel, apptTime})
-        .then(res => dispatch({type: POST_RESERVATION_SUCCESS, payload: res.data}))
-        .then(setTimeout(function(){ history.push('/') }, 1000))
-        .catch(err => dispatch({type: POST_RESERVATION_FAILED, payload: err}))   
-}
-
 // MAY NOT NEED -> PASS LOANERS DOWN FRM STATE ========== FETCH AVAILABLE LOANERS FOR CHECK-OUT FORM ==========
+
+
+//****************************************************************
+//              TRIP ACTIONS
+//****************************************************************
 
 // ========== POST DATA FROM CHECK-OUT FORM TO DB SCHEMA 'TRIPS' ==========
 export const postOutTrip = (outTrip, history) => (dispatch) => {
@@ -85,18 +115,3 @@ export const postInTrip = (inTrip, history) => (dispatch) => {
         .catch(err => dispatch({type: POST_INTRIP_FAILED, payload: err}))   
 }
 
-// ========== DELETE RESERVATION ROUTE EG DELETE ROUTE TO CHANGE isActive ATTR TO false ==========
-export const deleteReservation = (reservationId, history) => (dispatch) => {
-    const result = window.confirm('Are you sure you want to delete these reservations?')
-    
-    if (result === false) {
-        return
-    }
-
-    dispatch({type: DELETE_RESERVATIONS_PENDING})
-    console.log(reservationId)
-    axios.put('/api/reservations', { reservationId })
-        .then(res => dispatch({type: DELETE_RESERVATIONS_SUCCESS, payload: res.data}))
-        .then(setTimeout(function(){ history.push('/') }, 1000))
-        .catch(err => dispatch({type: DELETE_RESERVATIONS_FAILED, payload: err})) 
-}

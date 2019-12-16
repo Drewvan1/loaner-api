@@ -2,7 +2,8 @@ import {
     CHANGE_SEARCH_FIELD,
     REQUEST_RESERVATIONS_PENDING, REQUEST_RESERVATIONS_SUCCESS, REQUEST_RESERVATIONS_FAILED,
     REQUEST_LOANERS_PENDING, REQUEST_LOANERS_SUCCESS, REQUEST_LOANERS_FAILED,
-    REQUEST_USER_PENDING, REQUEST_USER_SUCCESS, REQUEST_USER_FAILED
+    REQUEST_USER_PENDING, REQUEST_USER_SUCCESS, REQUEST_USER_FAILED,
+    DELETE_RESERVATIONS_PENDING, DELETE_RESERVATIONS_SUCCESS, DELETE_RESERVATIONS_FAILED
 } from './constants'
 //import { object } from 'prop-types'
 
@@ -37,10 +38,31 @@ export const requestReservations = (state = initialStateReservations, action = {
             return Object.assign({}, state, {reservations: action.payload, resIsPending: false})
         case REQUEST_RESERVATIONS_FAILED:
             return Object.assign({}, state, {resError: action.payload, resIsPending: false})
+        case DELETE_RESERVATIONS_PENDING:
+            return Object.assign({}, state, {resIsPending: true})
+        case DELETE_RESERVATIONS_SUCCESS:
+            return Object.assign({}, state, {reservations: action.payload, resIsPending: false})
+        case DELETE_RESERVATIONS_FAILED:
+            return Object.assign({}, state, {resError: action.payload, resIsPending: false})
+
         default:
             return state;
     }
 }
+
+// on the server side, not actually deleting the reservation, simply changing the 'isActive' property to false
+// export const deleteReservation = (state=initialStateReservations, action = {}) => {
+//     switch (action.type) {
+//         case DELETE_RESERVATIONS_PENDING:
+//             return Object.assign({}, state, {resIsPending: true})
+//         case DELETE_RESERVATIONS_SUCCESS:
+//             return Object.assign({}, state, {reservations: action.payload, resIsPending: false})
+//         case DELETE_RESERVATIONS_FAILED:
+//             return Object.assign({}, state, {resError: action.payload, resIsPending: false})
+//         default:
+//             return state;
+//     }
+// }
 
 // ============= LOANERS REDUCER ================
 const initialStateLoaners = {
@@ -81,3 +103,4 @@ export const requestUser = (state=initialStateUser, action = {}) => {
             return state
     }
 }
+

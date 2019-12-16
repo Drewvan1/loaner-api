@@ -23,6 +23,7 @@ router.post('/api/reservations/', (req, res) => {
     // wonky - refactored front end to include entire loaner as reqModel variable
     const loaner = JSON.parse(reqModel)
 
+// find loaner requested to reserve and update isReserved property to true
     Loaner.findById(loaner._id, (err, foundLoaner) => {
         if (foundLoaner.isOut || foundLoaner.isReserved) {
             res.sendStatus(400).send('This loaner cannot be reserved.')
@@ -32,16 +33,17 @@ router.post('/api/reservations/', (req, res) => {
 
             const apptTime = new Date(req.body.apptTime)
             const createdBy = req.user.name
-            const newReservation = { fullName, apptTime, createdBy, reqModel: loaner.identifiers.model }
+            const newReservation = { fullName, apptTime, createdBy, reqModel: loaner.identifiers.model, stockNum: loaner.identifiers.stockNum, loanerId: loaner._id }
         
-            Reservation.create(newReservation, (err) => {
+// create new reservation
+            Reservation.create(newReservation, (err, doc) => {
                 if (err) {
                     console.log(err)
                     res.sendStatus(400).send('Reservation was not saved.')
                 } else {
                     // if successfully added to db push poll the db and push the json back to front-end
                     console.log('reservation added')
-                    res.redirect('/')
+                    console.log(doc)
                 }
             })
         }
@@ -49,8 +51,11 @@ router.post('/api/reservations/', (req, res) => {
 })
 
 router.put('/api/reservations', (req, res) => {
-    const { reservationId } = req.body
-    console.log(reservationId)
+    const { reservationId, loanerId } = req.body
+
+    Loaner.findByIdAndUpdate(loanerId, {$set:{isReserved:false}}, {new: true}, (err, doc) => {
+        console.log(doc)
+    })
 
     Reservation.findById(reservationId, (err, foundReservation) => {
         if (err) {
@@ -58,8 +63,16 @@ router.put('/api/reservations', (req, res) => {
         }
         
         foundReservation.isActive = false
-        foundReservation.save()
-        res.send('reservation deleted!')
+        foundReservation.save((err, doc) => {
+            if (err) {
+                // error handler
+            } else {
+                Reservation.find({ isActive: true }, (err, activeReservations) => {
+                    console.log('reservation deleted')
+                    res.json(activeReservations)
+                })
+            }
+        })
     })
 })
 

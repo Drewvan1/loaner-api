@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-import SearchBox from './SearchBox'
-import { setSearchField } from '../actions'
+// import SearchBox from './SearchBox'
+// import { setSearchField } from '../actions'
 
 import './navbar.css'
 
@@ -21,7 +21,7 @@ const mapStateToProps = (state) => {
 const MapDispatchToProps = (dispatch) => {
     return {
         onRequestUser: () => dispatch(fetchUser()),
-        onSearchChange: (e) => dispatch(setSearchField(e.target.value))
+        // onSearchChange: (e) => dispatch(setSearchField(e.target.value))
     }
 }
 
@@ -32,7 +32,7 @@ class Navbar extends Component {
     }
 
     renderContent(){
-        const { onSearchChange } = this.props
+        // const { onSearchChange } = this.props
         const loginJSX = 
             <div className={"flex-grow pa3 flex items-center"}>
                 <a className={"f6 dib white bg-animate hover-bg-white hover-black no-underline pv2 ph4 br-pill ba b--white-20"} href="/auth/google">Sign In With Google</a>
@@ -45,7 +45,7 @@ class Navbar extends Component {
                 <Link className={"f6 link dib white dim mr3 mr4-ns br-pill b--white-20 ba pv2 ph4"} to="/reservations/new">Reserve Loaner</Link>
                 <Link className={"f6 link dib white dim mr3 mr4-ns br-pill b--white-20 ba pv2 ph4"} to="/loaners/checkout">Check-Out Loaner</Link>
                 <Link className={"f6 link dib white dim mr3 mr4-ns br-pill b--white-20 ba pv2 ph4"} to="/loaners/checkin">Check-In Loaner</Link>
-                <SearchBox onSearchChange = {onSearchChange}/>
+                {/* <SearchBox onSearchChange = {onSearchChange}/> */}
                 <div className={'flex items-center'}>
                     <a className={"f6 dib white bg-animate hover-bg-white hover-black no-underline pv2 ph4 br-pill ba b--white-20"} href="/api/logout">Logout</a>
                 </div>

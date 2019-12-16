@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 
-import LoanerTable from '../LoanerTable/LoanerTable'
+// import LoanerTable from '../LoanerTable/LoanerTable'
 // import ReservationTable from '../ReservationTable/ReservationTable'
 //import NewReservationTable from '../ReservationTable/NewReservationTable'
-import EnhancedReservationTable from '../ReservationTable/EnhancedReservationTable'
+// import EnhancedReservationTable from '../ReservationTable/EnhancedReservationTable'
+// import EnhancedLoanerTable from '../LoanerTable/EnhancedLoanerTable'
+import MatUIResTable from '../ReservationTable/MatUIResTable'
+import MatUILoanerTable from '../LoanerTable/MatUILoanerTable'
 
 import { fetchReservations, fetchLoaners } from '../actions'
 
@@ -13,15 +16,15 @@ import { fetchReservations, fetchLoaners } from '../actions'
 const mapStateToProps = (state) => {
   return {
     
-    reservations: state.requestReservations.reservations,
-    resIsPending: state.requestReservations.isPending,
-    resError: state.requestReservations.resError,
+    // reservations: state.requestReservations.reservations,
+    // resIsPending: state.requestReservations.isPending,
+    // resError: state.requestReservations.resError,
     
-    loaners: state.requestLoaners.loaners,
-    loanersIsPending: state.requestLoaners.loanersIsPending,
-    loanersError: state.requestLoaners.loanersError,
+    // loaners: state.requestLoaners.loaners,
+    // loanersIsPending: state.requestLoaners.loanersIsPending,
+    // loanersError: state.requestLoaners.loanersError,
 
-    searchField: state.searchVehicles.searchField
+    // searchField: state.searchVehicles.searchField
   }
 }
 
@@ -43,25 +46,27 @@ class LoanerPage extends Component {
   }
 
   render() {
-    const { loaners, reservations, searchField } = this.props
+    // const { loaners, searchField } = this.props
 
     //eslint-disable-next-line
-    const filteredLoaners = loaners.filter(loaner => {
-      const combinedString = `${loaner.identifiers.stockNum}${loaner.identifiers.plate}${loaner.identifiers.year} ${loaner.identifiers.model} ${loaner.identifiers.trim}`
-        if (combinedString.toLowerCase().includes(searchField.toLowerCase())) {
-          return loaner
-        }
-    })
+    // const filteredLoaners = loaners.filter(loaner => {
+    //   const combinedString = `${loaner.identifiers.stockNum}${loaner.identifiers.plate}${loaner.identifiers.year} ${loaner.identifiers.model} ${loaner.identifiers.trim}`
+    //     if (combinedString.toLowerCase().includes(searchField.toLowerCase())) {
+    //       return loaner
+    //     }
+    // })
 
     // function to sort reservations by apptTIme
-    const sortedReservations = reservations.sort(function (a, b) {
-      return new Date(a.apptTime).getTime() - new Date(b.apptTime).getTime()
-    });
+    // const sortedReservations = reservations.sort(function (a, b) {
+    //   return new Date(a.apptTime).getTime() - new Date(b.apptTime).getTime()
+    // });
 
     return (
       <div>
-          <LoanerTable loaners={filteredLoaners} />
-          <EnhancedReservationTable reservations={sortedReservations}/>
+          {/* <LoanerTable loaners={filteredLoaners} /> */}
+          <MatUILoanerTable />
+          {/* <EnhancedReservationTable reservations={sortedReservations}/> */}
+          <MatUIResTable />
       </div>
     )
   }

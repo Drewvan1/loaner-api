@@ -114,3 +114,6 @@ CHECK-OUT FORM
 
     -> so 
 
+    -> i'd like to enhance the app with material-ui components
+        a. detail panel that drops down for each loaner with automatic data (https://material-table.com/#/docs/features/detail-panel)
+        
