@@ -34,7 +34,7 @@ router.post('/api/trip/out', (req, res) => {
             console.log(loaner)
         })
     })
-
+    // is this what i want to send back??????
     res.send('connected!')
 })
 
@@ -77,7 +77,7 @@ router.post('/api/trip/in', (req, res) => {
             }
         })
     })
-    
+    // is this what i want to send back??????
     res.send('connected!')
 })
 

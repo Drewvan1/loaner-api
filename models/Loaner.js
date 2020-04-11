@@ -13,8 +13,7 @@ const loanerSchema = new mongoose.Schema({
         trim: String,
         color: String
     },
-    // need to figure out a way to designate availablilty
-
+    
     // subdocument of Trip objects
     trips: [TripSchema],
 
@@ -30,6 +29,8 @@ const loanerSchema = new mongoose.Schema({
     //         lat: Schema.Types.Decimal128
     //     }
     // }
+    
+    // need to figure out a way to designate availablilty
     isReserved: {type: Boolean, default: false},
     isOut: {type: Boolean, default: false}
 });

@@ -22,6 +22,20 @@ passport.deserializeUser((id, done) => {
 
 // ============ PASSPORT SETUP =====================
 const keys = require('../config/keys')
+
+// in the google api console: https://console.cloud.google.com/apis/credentials/oauthclient/228590663459-m8d4ur197v780j1f0m37uufhartbu4r5.apps.googleusercontent.com?project=loaner-api-dev
+// Authorized JavaScript origins 
+// For use with requests from a browser
+// URIs
+// http://localhost:5000
+// Authorized redirect URIs 
+// For use with requests from a web server
+// URIs
+// http://localhost:5000/auth/google/callback
+// http://localhost:3000/auth/google/callback
+
+
+
 passport.use(new GoogleStrategy({
 	clientID: keys.googleClientID,
 	clientSecret: keys.googleClientSecret,
@@ -41,18 +55,8 @@ passport.use(new GoogleStrategy({
 		} catch (error) {
 			console.log(error)
 		}
-		
-		// User.findOne({googleId: profile.id})
-		// 	.then(existingUser => {
-		// 		if (existingUser) {
-		// 			done(null, existingUser)
-		// 		} else {
-		// 			new User({googleId: profile.id, email: profile.emails[0].value, name: `${profile.name.givenName} ${profile.name.familyName[0]}`})
-		// 				.save()
-		// 				.then(user => done(null, user))
-		// 		}
-		// 	})
-		// 	.catch(err => console.log(err))
 	}
 ))
 
+// check passportjs docs -> may be able to 'authorize' automatic
+// api calls rather than using passport authentification.

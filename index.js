@@ -52,6 +52,8 @@ app.use(reservationRoutes)
 app.use(authRoutes)
 app.use(tripRoutes)
 
+
+// ============ START SERVER =====================
 const PORT = process.env.PORT;
 app.listen(PORT || 5000, () => {
 	console.log('server up!');

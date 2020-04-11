@@ -114,3 +114,20 @@ CHECK-OUT FORM
 
     -> so 
 
+    -> i'd like to enhance the app with material-ui components
+        a. detail panel that drops down for each loaner with automatic data (https://material-table.com/#/docs/features/detail-panel)
+
+
+-> need to add code to add reservation from within reservation table....when click...modal?
+--> for reservations when check out loaner reserved it will not delete the associated reservation.  add code to do that.
+--> if do not want reservation deleted must make general reseration eg not associated with specific stock num.  must add generic models to options.
+
+-> need to add code to check out/in loaner from within loaner table....when click...modal?
+-> disable check out/in button when cannot be checked in or out.
+
+
+-> AUTOMATIC API CALLS
+--> in passport file, may be able to set up an authorization workflow
+    in order to get the api key, rather than an authentification workflow.  check passportjs docs.
+--> put this info into the drop for each loaner row in the loaner
+    table
