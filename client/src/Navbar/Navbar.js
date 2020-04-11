@@ -5,8 +5,7 @@ import { Link } from 'react-router-dom'
 // import SearchBox from './SearchBox'
 // import { setSearchField } from '../actions'
 
-import './navbar.css'
-
+// import './navbar.css'
 
 import { fetchUser } from '../actions'
 

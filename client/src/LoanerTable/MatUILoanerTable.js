@@ -5,6 +5,8 @@ import { connect } from 'react-redux'
 
 import { prepLoanerRowData } from '../helpers'
 
+// import { AddBoxIcon } from '@material-ui/icons/AddBox';
+
 const mapStateToProps = (state) => {
     return {
         loaners: state.requestLoaners.loaners,
@@ -39,6 +41,48 @@ const MatUILoanerTable = (props) => {
             data={loanersRowData}
             title={'Loaner Table'}
             options={{pageSize: 10}}
+            detailPanel={loanersRowData => {
+                return (
+                    <h1>{loanersRowData.identifiers.stockNum} - AUTOMATIC DATA GOES HERE</h1>
+                )
+            }}
+            actions={[
+                {
+                    icon: 'add',
+                    tooltip: 'Add Loaner',
+                    isFreeAction: true,
+                    onClick: (e) => {
+                        alert('you clicked me')
+                    },
+
+                },
+                {
+                    icon: 'assignment',
+                    tooltip: 'Check-Out Loaner',
+                    onClick: (e, rowData) => {
+                        alert('you want to check out a loaner')
+                        console.log(e, rowData)
+                    }
+                    // disabled: true -> when already checked out
+                },
+                {
+                    icon: 'check',
+                    tooltip: 'Check-In Loaner',
+                    onClick: (e, rowData) => {
+                        alert('check in')
+                        console.log(e, rowData)
+                    }
+                    // disabled: true 
+                    // rowData => ({
+                    //     icon: 'delete',
+                    //     tooltip: 'Delete User',
+                    //     onClick: (event, rowData) => confirm("You want to delete " + rowData.name),
+                    //     disabled: rowData.birthYear < 2000
+                    //   })
+
+
+                }
+            ]}
         />
 
     )
